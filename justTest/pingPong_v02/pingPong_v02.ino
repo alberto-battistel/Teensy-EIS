@@ -35,7 +35,7 @@ void obj4ADC::checkAverage(float x) {
   else if (x >= 8)  Parameters.average = 8;
   else if (x >= 4)  Parameters.average = 4;
   else if (x >= 2)  Parameters.average = 2;
-  else if (x == 1)  Parameters.average = 1; 
+  else Parameters.average = 1; 
 }
 
 void obj4ADC::update_value(char letter, float x) {

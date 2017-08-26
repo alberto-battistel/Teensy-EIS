@@ -1,5 +1,5 @@
 
-#define BUFFERSIZE 1024
+#define BUFFERSIZE 64
 #define DEBUG_ false
 
 uint16_t a[BUFFERSIZE]; 
@@ -12,10 +12,14 @@ void setup() {
   }
 
   for(uint16_t i = 0; i < BUFFERSIZE; i++) a[i] = (uint16_t)round((0.5+sin(i*2*PI/BUFFERSIZE)/2)*(pow(2,16)-1));
-
+  
   Serial.println("Ready!");
-  Serial.println(PI);
-  Serial.println();
+  while (!Serial.available())
+  Serial.read();
+  
+    
+//  Serial.println(PI);
+//  Serial.println();
 
 }
 
@@ -31,16 +35,24 @@ void loop() {
   }  
   else  {
     for(uint32_t i = 0; i < BUFFERSIZE; i++) {
-    Serial.write(lowByte(a[i]));
-    Serial.write(highByte(a[i]));
+      Serial.write(lowByte(a[i]));
+      Serial.write(highByte(a[i]));
       /* use 
        * data = s.readline() and 
        * np.fromstring(data,dtype = np.uint16)
        * to get the data in python
        */
     }
-  delayMicroseconds(Delay_us);
+    Serial.println();
+    delayMicroseconds(Delay_us);
   }
-  count = count + i;
-  if(count > ReqCount ) Serial.println();
+  count++;
+  if(count > 5 ) { 
+    Serial.println();
+    exit(0);
+//    Serial.println("Ready!");
+//    while (!Serial.available())
+//    Serial.read();
+//    count = 0;
+  }
 }
