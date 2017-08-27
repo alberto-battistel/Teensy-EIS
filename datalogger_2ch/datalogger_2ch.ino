@@ -1,18 +1,19 @@
 #include <ADC.h>
 #include <DMAChannel.h>
 #include <array>
+#include <assert.h>
 
 /* do you want to check timing?
  *  it print info about how many samples are collected per iteration 
  *  and timing...
  */
-bool debug_ = false;
+bool debug_ = true;
 
 /* Stop after a number of samples
  *  allow to stop the stream after collecting maxSamples
  */
-bool stopOnSamples = true;    // flag
-uint32_t maxSamples = 500000;   // stop after
+bool stopOnSamples = false;    // flag
+uint32_t maxSamples = 5000;   // stop after
 uint32_t nSamples = 0;        // counter
 
 /* Settings for Ring buffer (DMA) and aquisition frequency */
@@ -23,7 +24,7 @@ uint32_t nSamples = 0;        // counter
 uint16_t streamBuffer[BUFFERSIZE];
 
 // Frequency of acquistion (max 250 kHz with 8 bit resolution)
-#define FREQUENCY 220000   // Hz
+#define FREQUENCY 50000   // Hz
 
 /* Settings for ADC
  *  AVERAGE 32 OK at 10 kHz
@@ -89,9 +90,15 @@ void setup() {
     pinMode(adc_pin1, INPUT);
     Serial.begin(9600);
     delay(2000);
+
+    // wait for input, it does not work? I still do not understand this fully...
+//    while (!Serial.available())
+//    Serial.read();
+
     //Serial.println("Starting");
     
-    constexpr uint32_t pdb_trigger_frequency = FREQUENCY;
+    //~ constexpr uint32_t pdb_trigger_frequency = FREQUENCY;
+    uint32_t pdb_trigger_frequency = FREQUENCY;
     adc.setAveraging(AVERAGE);
     adc.setResolution(RESOLUTION);
 
@@ -140,8 +147,10 @@ void setup() {
     // enable PDB    
     SIM_SCGC6 |= SIM_SCGC6_PDB;
     // constexpr uint32_t pdb_trigger_frequency = 10000;
-    constexpr uint32_t mod = (F_BUS / pdb_trigger_frequency);
-    static_assert(mod <= 0x10000, "Prescaler required.");
+//    constexpr uint32_t mod = (F_BUS / pdb_trigger_frequency);
+    uint32_t mod = (F_BUS / pdb_trigger_frequency);
+//    static_assert(mod <= 0x10000, "Prescaler required.");
+    assert(mod <= 0x10000);
     PDB0_MOD = (uint16_t)(mod-1);
     PDB0_CH0C1 = PDB_CHnC1_TOS_1 | PDB_CHnC1_EN_1; // PDB triggers ADC0 SC1A
     PDB0_CH1C1 = PDB_CHnC1_TOS_1 | PDB_CHnC1_EN_1; // PDB triggers ADC1 SC1A
@@ -155,10 +164,10 @@ void setup() {
 
 void loop() {	
     // stop when it reaches the right number of samples
-    if (stopOnSamples && (nSamples > maxSamples)) {
-      streamData = false;
-      stopOnSamples = !stopOnSamples;
+    if (stopOnSamples) {
+      exit(0);
     }
+
     
     noInterrupts();
     size_t buffer_idx0 = (((uint16_t*) dma0.destinationAddress()) - &buffer[0].v_adc0) / 2;
@@ -166,9 +175,9 @@ void loop() {
     interrupts();
 
     // number of values to stream
-    size_t nvalues = 0;
+    uint32_t nvalues = 0;
     // position in the stream buffer
-    size_t position = 0;
+    uint16_t posStreamBuffer = 0;
     // update timer
     time = micros();
 
@@ -190,7 +199,7 @@ void loop() {
         if(old_buffer_idx0 < buffer_idx0) {
           // consecutive order
           for(size_t i = old_buffer_idx0; i < buffer_idx0; i++) {
-              streamBuffer[position++] = buffer[i].v_adc0;
+              streamBuffer[posStreamBuffer++] = buffer[i].v_adc0;
             nvalues++;    
           }
         }
@@ -200,7 +209,7 @@ void loop() {
          */
           else {
             for(size_t i = old_buffer_idx0; i < BUFFERSIZE; i++) {
-              streamBuffer[position++] = buffer[i].v_adc0;
+              streamBuffer[posStreamBuffer++] = buffer[i].v_adc0;
             nvalues++; 
             }
             for(size_t i = 0; i < buffer_idx0; i++) {
@@ -214,15 +223,40 @@ void loop() {
        *  so stream only the right number of values 
        *  to improve performances use "Serial" as USB type for teensy (very important)
        *    rise CPU clock
-       *    print as HEX (it saves 20% of time)
+       *    write bytes (1.3 us per data)
        */
-      for(size_t i = 0; i < position; i++) {
-        Serial.print(streamBuffer[i], DEC);
-        if(i % 40 == 39) Serial.println();
-        else Serial.print(" ");    
+      uint16_t last2Stream = posStreamBuffer; 
+      if(nSamples+nvalues >= maxSamples)  {
+        // it is reaching the right number of samples to stream
+        uint32_t samplesTooMuch = nSamples + nvalues - maxSamples;
+        last2Stream = posStreamBuffer - (uint16_t)samplesTooMuch;
+        stopOnSamples = !stopOnSamples;  
+        streamData = true;        
       }
-      // count the samples
-      nSamples = nSamples+(uint32_t)nvalues;
+      // Stream bytes
+      for(uint16_t i = 0; i < last2Stream; i++) { 
+        // stream       
+        Serial.write(lowByte(streamBuffer[i]));
+        Serial.write(highByte(streamBuffer[i]));
+        /* use 
+         * data = s.readline() and 
+         * np.fromstring(data,dtype = np.uint16)
+         * to get the data in python
+         */ 
+        // count the samples
+        nSamples++;
+      }
+      Serial.println();
+      
+//      // Stream readable
+//      for(uint16_t i = 0; i < last2Stream; i++) { 
+//        // stream       
+//        Serial.print(streamBuffer[i], DEC);
+//        if(i % 40 == 39) Serial.println();
+//        else Serial.print(" ");  
+//        // count the samples
+//        nSamples++;
+//      }      
     }
 
     /* Print details for timing and streaming
@@ -236,7 +270,7 @@ void loop() {
      *    number of samples collected:      nSamples
      *  it is faster to send only 10-50 data values than more than 100 by a factor of 2-3   
      */
-    if(debug_ && streamData) { 
+    if(debug_) { 
     Serial.println();
     Serial.print("Number of values: ");
     Serial.println(nvalues);
