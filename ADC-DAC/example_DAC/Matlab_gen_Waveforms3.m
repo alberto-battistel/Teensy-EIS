@@ -11,7 +11,7 @@ filename = 'Waveforms_Gen.h';		% name of the header file to create
 baseFreq = 1;     	% base frequeny of the arbitrary waveform
 L = 1e4;            % length of the multisine (1e4 and 1e5 take 2% and 20% of available memory on T3.6)
 nbit = 12;			% resolution of the DAC
-nperiods = [100];  	% in the waveform, it is a vector with [1,4] you have two signals with 1 and 4 periods inside
+nperiods = [10];  	% in the waveform, it is a vector with [1,4] you have two signals with 1 and 4 periods inside
 
 stepTime = ((baseFreq*L)^-1)*1e6;     % in us interrupt delay time (Delay)
 maxDig = 2^nbit-1;    % resolution
