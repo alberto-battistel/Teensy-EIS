@@ -14,7 +14,7 @@ import serial
 import time
 import numpy as np
 import pylab as pl
-import struct
+from scipy.fftpack import fft
 
 #%%
 """Open serial communication.
@@ -41,41 +41,29 @@ NUM = []
 teensy.write('S0'.encode('utf-8'))
 time.sleep(1)
 
+#%%
+while teensy.readline() != b'Go!\r\n':
+    continue
+
 #%% 
 """Receive the data.
 
-problem: it happens that it recieve a byte (\n) corresponding at the end of line
-and it messes up the interpretation on python..."""
+first an ascii value with end of line to advice how many data are coming
+then the bytes of the data"""
 while True:
     "Read data."
-    a = teensy.readline()
-    print(a)
-    if not a:
-        "There is an error in communication."
-        print('Error')
-        print(a)
+    byteStream = teensy.readline()
+    if byteStream is b'':
+        print("Done")
         break
-    elif a == b'\r\n':
-        "Empty line."
-        print('No more data')
+    if len(byteStream) > 6:
+        print("Error")
         break
-    elif a == b'Ready!\r\n':
-        "First Ready."
-        print('Teensy is Ready!')
-        continue
-    elif a == b'Waiting...\r\n':
-        "Teensy is waiting."
-        print('Teensy is waiting...')
-        continue
-    elif a == b'Go!\r\n':
-        "It starts."
-        print('It starts!')
-        continue
-    else:
-        "Collect data."
-#        print(len(a))
-#        print(a)
-        NUM.append(np.fromstring(a[:-2], dtype=np.uint16))
+    data2read = int(byteStream.decode('utf-8'))
+    print(data2read)
+    byteData = teensy.read(2*data2read) # read bytes
+    NUM.append(np.fromstring(byteData, dtype=np.uint16))
+    
         
 #%%
 """Convert the list into an array."""        
@@ -93,7 +81,10 @@ for i in range(0,len(NUM)-1):
 
 #%%
 """Plot."""    
+pl.subplot(2, 1, 1)
 pl.plot(data)
+pl.subplot(2, 1, 2)
+pl.semilogy(abs(fft(data))/len(data))
 pl.show()
         
 #%%

@@ -40,7 +40,7 @@ bool debug_ = false;
  *  allow to stop the stream after collecting maxSamples
  */
 bool stop4Samples = false;    // flag
-uint32_t maxSamples = 10000;   // stop after
+uint32_t maxSamples = 50000;   // stop after
 uint32_t nSamples = 0;        // counter
 
 /* Settings for Ring buffer (DMA) and aquisition frequency */
@@ -51,7 +51,7 @@ uint32_t nSamples = 0;        // counter
 uint16_t streamBuffer[BUFFERSIZE];
 
 // Frequency of acquistion (max 250 kHz with 8 bit resolution)
-#define FREQUENCY 1000   // Hz
+#define FREQUENCY 10000   // Hz
 
 /* Settings for ADC
  *  AVERAGE 32 OK at 10 kHz
@@ -292,22 +292,25 @@ void loop() {
         streamData = true;        
       }
       
+      // Advice how many data are going to be streamed
+      Serial.println(last2Stream);	// use s.readline() to receive
+      
       // Stream bytes
       for(uint16_t i = 0; i < last2Stream; i++) { 
         // stream       
         Serial.write(lowByte(streamBuffer[i]));
         Serial.write(highByte(streamBuffer[i]));
         /* use 
-         * data = s.readline() and 
+         * data = s.read(x) where x is the number of bytes (16 bits = 4 bytes) 
          * np.fromstring(data,dtype = np.uint16)
          * to get the data in python
          */ 
         // count the samples
         nSamples++;
       }
-      Serial.println();
-      // End of stream
-      if(nSamples+nvalues >= maxSamples) Serial.println();
+      //Serial.println();
+      //// End of stream
+      //if(nSamples+nvalues >= maxSamples) Serial.println();
       
 //      // Stream readable
 //      for(uint16_t i = 0; i < last2Stream; i++) { 
