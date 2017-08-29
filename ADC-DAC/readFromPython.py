@@ -11,6 +11,7 @@ Created on Mon Aug 28
 
 #%%
 import serial
+import io
 import time
 import numpy as np
 import pylab as pl
@@ -34,12 +35,15 @@ time.sleep(1)
 teensy.setDTR(True)
 
 #%% prepare list to receive the data
-NUM = []
+byteDataList = []
+byteStreamList = []
 
 #%% 
 """Tell teensy you are ready (it is just waiting for some bytes)."""
+teensy.reset_input_buffer()
 teensy.write('S0'.encode('utf-8'))
-time.sleep(1)
+teensy.flush()
+
 
 #%%
 while teensy.readline() != b'Go!\r\n':
@@ -50,41 +54,51 @@ while teensy.readline() != b'Go!\r\n':
 
 first an ascii value with end of line to advice how many data are coming
 then the bytes of the data"""
+totalLength = 0
 while True:
     "Read data."
+    #print("\tWaiting Byte: \t%d" % teensy.inWaiting())
     byteStream = teensy.readline()
+    byteStreamList.append(byteStream)
+    
     if byteStream is b'':
         print("Done")
         break
     if len(byteStream) > 6:
         print("Error")
-        break
-    data2read = int(byteStream.decode('utf-8'))
-    print(data2read)
-    byteData = teensy.read(2*data2read) # read bytes
-    NUM.append(np.fromstring(byteData, dtype=np.uint16))
+        break    
     
-        
+    data2read = int(byteStream.decode('utf-8'))
+    #print("Byte to read: \t%d" % data2read)
+    #print("Waiting Byte: \t%d" % teensy.inWaiting())
+    byteData = teensy.read(2*data2read) # read bytes 
+    byteDataList.append(byteData)
+    totalLength = totalLength + len(byteData)
+    
+print("Byte aquired: \t%d" % totalLength)        
 #%%
 """Convert the list into an array."""        
 lengthList = 0
-for i in range(0,len(NUM)-1):
-    lengthList = lengthList+len(NUM[i])
+for i in range(0,len(byteDataList)):
+    lengthList = lengthList+len(byteDataList[i])/2
 
-data = np.zeros([lengthList], dtype=np.uint16)
+print("Length of streamed data: \t%d" % lengthList)
+data = np.zeros([int(lengthList)], dtype=np.uint16)
 
 position1 = 0;
-for i in range(0,len(NUM)-1):
-    position2 = position1+len(NUM[i])
-    data[position1:position2] = NUM[i]
+for i in range(0,len(byteDataList)):
+    position2 = position1+int(len(byteDataList[i])/2)
+    data[position1:position2] = np.fromstring(byteDataList[i], dtype=np.uint16)
     position1 = position2
 
 #%%
 """Plot."""    
-pl.subplot(2, 1, 1)
+pl.subplot(3, 1, 1)
 pl.plot(data)
-pl.subplot(2, 1, 2)
+pl.subplot(3, 1, 2)
 pl.semilogy(abs(fft(data))/len(data))
+pl.subplot(3, 1, 3)
+pl.plot(np.diff(np.float32(data)))
 pl.show()
         
 #%%

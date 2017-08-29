@@ -40,7 +40,7 @@ bool debug_ = false;
  *  allow to stop the stream after collecting maxSamples
  */
 bool stop4Samples = false;    // flag
-uint32_t maxSamples = 50000;   // stop after
+uint32_t maxSamples = 500000;   // stop after
 uint32_t nSamples = 0;        // counter
 
 /* Settings for Ring buffer (DMA) and aquisition frequency */
@@ -51,7 +51,7 @@ uint32_t nSamples = 0;        // counter
 uint16_t streamBuffer[BUFFERSIZE];
 
 // Frequency of acquistion (max 250 kHz with 8 bit resolution)
-#define FREQUENCY 10000   // Hz
+#define FREQUENCY 250000   // Hz
 
 /* Settings for ADC
  *  AVERAGE 32 OK at 10 kHz
@@ -61,7 +61,7 @@ uint16_t streamBuffer[BUFFERSIZE];
  *  RESOLUTION 8 at 250 kHz gives a floor noise of 0.1 mV
  */
 #define AVERAGE 1    // max 8 at 50 kHz
-#define RESOLUTION 16 // bits
+#define RESOLUTION 8 // bits
 
 /* flags and counter */
 // command to stop streaming
@@ -86,8 +86,8 @@ bool JustStart = true;
  *  TIME_1VAL is between 2 and 5 us
  */
  #define BEST_N_VAL 50
- #define TIME_1VAL 5e-6   // s
- int16_t Delay_us = max((int16_t)(BEST_N_VAL*(1-TIME_1VAL*FREQUENCY)/FREQUENCY*1e6), 0);    // us
+ #define TIME_1VAL 3e-6   // s
+ int32_t Delay_us = max((int32_t)(BEST_N_VAL*(1-TIME_1VAL*FREQUENCY)/FREQUENCY*1e6), 0);    // us
 
 
 /* 
@@ -207,7 +207,8 @@ void setup() {
     delay(1000);
     while (!(Serial.available() > 0))  {
         Serial.println("Waiting...");
-        delay(500);  
+        Serial.send_now();
+        delay(1000);  
     }
     while (Serial.available() > 0) Serial.read();
     Serial.println("Go!");    
@@ -293,6 +294,7 @@ void loop() {
       }
       
       // Advice how many data are going to be streamed
+      //Serial.println(Iterations);   // count iterations
       Serial.println(last2Stream);	// use s.readline() to receive
       
       // Stream bytes
@@ -305,6 +307,7 @@ void loop() {
          * np.fromstring(data,dtype = np.uint16)
          * to get the data in python
          */ 
+        // Serial.send_now();
         // count the samples
         nSamples++;
       }
