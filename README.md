@@ -14,3 +14,5 @@ The idea is to use the two ADCs of the Teensy 3.6 (pjrc.com) to aquire data and 
 4- justTest/readFromPython is a prototype communication between teensy and python 
 
 5- the rest is a collection of random things
+
+**30Aug2017 - Test commit by Chris
