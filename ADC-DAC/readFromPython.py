@@ -11,7 +11,6 @@ Created on Mon Aug 28
 
 #%%
 import serial
-import io
 import time
 import numpy as np
 import pylab as pl
@@ -35,8 +34,8 @@ time.sleep(1)
 teensy.setDTR(True)
 
 #%% prepare list to receive the data
-byteDataList = []
-byteStreamList = []
+byteDataList = [[], []]
+byteStreamList = [[], []]
 
 #%% 
 """Tell teensy you are ready (it is just waiting for some bytes)."""
@@ -53,52 +52,70 @@ while teensy.readline() != b'Go!\r\n':
 """Receive the data.
 
 first an ascii value with end of line to advice how many data are coming
-then the bytes of the data"""
-totalLength = 0
-while True:
+then the bytes of the data
+twice, one for ADC channel"""
+totalLength = [0,0]
+StreamNotCompleted = [True, True]
+while all(StreamNotCompleted):
     "Read data."
-    #print("\tWaiting Byte: \t%d" % teensy.inWaiting())
-    byteStream = teensy.readline()
-    byteStreamList.append(byteStream)
-    
-    if byteStream is b'':
-        print("Done")
+    byteIterations = teensy.readline()
+    if byteIterations is b'':
         break
-    if len(byteStream) > 6:
-        print("Error")
-        break    
-    
-    data2read = int(byteStream.decode('utf-8'))
-    #print("Byte to read: \t%d" % data2read)
-    #print("Waiting Byte: \t%d" % teensy.inWaiting())
-    byteData = teensy.read(2*data2read) # read bytes 
-    byteDataList.append(byteData)
-    totalLength = totalLength + len(byteData)
-    
-print("Byte aquired: \t%d" % totalLength)        
+    Iterations = int(byteIterations.decode('utf-8'))
+    print("\nIterations: %d" % Iterations)
+    for ch in range(len(totalLength)):
+        print("%d\tWaiting Byte: \t%d" % (ch, teensy.inWaiting()))        
+        byteStream = teensy.readline()
+        byteStreamList[ch].append(byteStream)
+        
+        if byteStream is b'':
+            print("Done %d" % ch)
+            StreamNotCompleted[ch] = False
+            continue
+        if len(byteStream) > 6:
+            print("Error %d" % ch)
+            StreamNotCompleted = False
+            break    
+        
+        data2read = int(byteStream.decode('utf-8'))
+        byteData = teensy.read(2*data2read) # read bytes 
+        byteDataList[ch].append(byteData)
+        totalLength[ch] = totalLength[ch] + len(byteData)
+        print("Byte to read \t%d" % (data2read/2))
+        print("%d\tWaiting Byte: \t%d" % (ch, teensy.inWaiting()))      
+        print("%d\tLength: \t%d" % (ch, (totalLength[ch]/2)))
+        
+for ch in range(len(totalLength)):
+    print("Byte aquired: \t%d" % totalLength[ch])
+        
 #%%
-"""Convert the list into an array."""        
-lengthList = 0
-for i in range(0,len(byteDataList)):
-    lengthList = lengthList+len(byteDataList[i])/2
-
-print("Length of streamed data: \t%d" % lengthList)
-data = np.zeros([int(lengthList)], dtype=np.uint16)
-
-position1 = 0;
-for i in range(0,len(byteDataList)):
-    position2 = position1+int(len(byteDataList[i])/2)
-    data[position1:position2] = np.fromstring(byteDataList[i], dtype=np.uint16)
-    position1 = position2
+"""Convert the list into an array."""  
+data = [[], []] 
+for ch in range(len(totalLength)):     
+    lengthList = 0
+    for i in range(0,len(byteDataList[ch])):
+        lengthList = lengthList+len(byteDataList[ch][i])/2
+    
+    print("Length of streamed data: \t%d" % lengthList)
+    data[ch] = np.zeros([int(lengthList)], dtype=np.uint16)
+    
+    position1 = 0;
+    for i in range(0,len(byteDataList[ch])):
+        position2 = position1+int(len(byteDataList[ch][i])/2)
+        data[ch][position1:position2] = np.fromstring(byteDataList[ch][i], dtype=np.uint16)
+        position1 = position2
 
 #%%
 """Plot."""    
 pl.subplot(3, 1, 1)
-pl.plot(data)
+pl.plot(data[0])
+pl.plot(data[1])
 pl.subplot(3, 1, 2)
-pl.semilogy(abs(fft(data))/len(data))
+pl.semilogy(abs(fft(data[0]))/len(data[0]))
+pl.semilogy(abs(fft(data[1]))/len(data[1]))
 pl.subplot(3, 1, 3)
-pl.plot(np.diff(np.float32(data)))
+pl.plot(np.diff(np.float32(data[0])))
+pl.plot(np.diff(np.float32(data[1])))
 pl.show()
         
 #%%
