@@ -84,7 +84,7 @@ while all(StreamNotCompleted):
         print("Byte to read \t%d" % (data2read/2))
         print("%d\tWaiting Byte: \t%d" % (ch, teensy.inWaiting()))      
         print("%d\tLength: \t%d" % (ch, (totalLength[ch]/2)))
-        
+#%%      
 for ch in range(len(totalLength)):
     print("Byte aquired: \t%d" % totalLength[ch])
         

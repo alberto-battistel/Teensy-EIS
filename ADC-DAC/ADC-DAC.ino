@@ -14,24 +14,14 @@
 
 IntervalTimer timerDAC;
 
-volatile int t = 0;
+volatile uint32_t counterDAC = 0;
 uint16_t DelayDAC = 100; // in us
-
-//void timer0_callback() {
-//	analogWrite(pinDAC,waveformsTable[t]);
-//	t++;
-//	if (t >= maxSamplesNum) {
-//		t=0;
-//	}
-//}
-/* end of DAC
- */
 
 /* do you want to check timing?
  *  it print info about how many samples are collected per iteration
  *  and timing...
  */
-#define DEBUG
+//#define DEBUG
 
 /* do you want to see the number of iteraion? */
 #define ITERATIONS
@@ -42,7 +32,7 @@ uint16_t DelayDAC = 100; // in us
 bool stop4Samples[2] = {false, false};    // flag, signal that it streamed all the data of channels 0
 uint32_t nSamples0 = 0;        // counter for data streamed for channel 0
 uint32_t nSamples1 = 0;        // counter for data streamed for channel 1
-uint32_t maxSamples = 30000;     // stop after
+uint32_t maxSamples = 9000;     // stop after
 
 /* Settings for Ring buffer (DMA) and aquisition frequency */
 // DMA buffer size
@@ -62,14 +52,14 @@ uint16_t streamBuffer[2][BUFFERSIZE];
  *  RESOLUTION 8 at 250 kHz gives a floor noise of 0.1 mV
  */
 #define AVERAGE 1    // max 8 at 50 kHz
-#define RESOLUTION 16 // bits
+#define RESOLUTION 8 // bits
 
 /* flags and counter */
 // command to stop streaming
 boolean streamData = true;
 
 // track in print time for serial print
-unsigned long time = 0;
+unsigned long time_us = 0;
 
 // store old index of buffer
 volatile size_t old_buffer_idx0 = 0;
@@ -87,7 +77,7 @@ bool JustStart = true;
  *  according to the time it takes to send a value (TIME_1VAL) and the aquistion frequency (FREQUENCY)
  *  TIME_1VAL is between 1 and 3 us
  */
- #define BEST_N_VAL 500
+ #define BEST_N_VAL 100
  #define TIME_1VAL 3e-6   // s
  int32_t Delay_loop = max((int32_t)(BEST_N_VAL*(1-TIME_1VAL*FREQUENCY)/FREQUENCY*1e6), 0);    // us
 
@@ -218,7 +208,7 @@ void loop() {
     uint16_t nvalues0;
     uint16_t nvalues1;
     //// update timer
-    time = micros();
+    time_us = micros();
 
     /* Transfer from ringbuffer (DMA) to stream buffer
      *  ring buffer can wrap
@@ -227,10 +217,10 @@ void loop() {
      */
 
     if(streamData) { // do it only if
-		nvalues0 = StreamData(nSamples0, 0, old_buffer_idx0, buffer_idx0);
+		nvalues0 = StreamData(nSamples0, 0, &buffer[0].v_adc0, old_buffer_idx0, buffer_idx0);
 		nSamples0 = nSamples0 + (uint32_t)nvalues0;
 
-		nvalues1 = StreamData(nSamples1, 1, old_buffer_idx1, buffer_idx1);
+		nvalues1 = StreamData(nSamples1, 1, &buffer[0].v_adc1, old_buffer_idx1, buffer_idx1);
 		nSamples1 = nSamples1 + (uint32_t)nvalues1;
     }
 
@@ -252,9 +242,9 @@ void loop() {
 		Serial.print(", ");
 		Serial.println(nvalues1);
 
-		time = micros()-time;
+		time_us = micros()-time_us;
 		Serial.print("time: ");
-		Serial.print(time);
+		Serial.print(time_us);
 		Serial.println(" us");
 
 		Serial.print("delay time in the loop: ");
@@ -271,7 +261,7 @@ void loop() {
 		Serial.print(", ");
 		Serial.println(old_buffer_idx1);
 
-		float us4value = (float)time/(float)nvalues0;
+		float us4value = (float)time_us/(float)nvalues0;
 		Serial.print("us for value: ");
 		Serial.println(us4value);
 
@@ -314,11 +304,11 @@ void loop() {
  *  this is called at DelayDAC time by the timerDAC
  */
 void DAC_callback() {
-  analogWrite(pinDAC,waveformsTable[t]);
-  t++;
-  if (t >= maxSamplesNum) {
-    t=0;
-  }
+    analogWrite(pinDAC,waveformsTable[counterDAC]);
+    counterDAC++;
+    if (counterDAC >= maxSamplesNum) {
+        counterDAC = 0;
+    }
 }
 
 
@@ -364,7 +354,7 @@ void startConversion()  {
  *  ERROR, I need to use pointers to pass buffer[i].v_adc0 and buffer[i].v_adc1...
  *  not corrected yet
  */
-uint16_t StreamData(uint32_t NumberOfSamples, uint8_t bufferIndex, volatile size_t old_buffer_, volatile size_t buffer_) {
+ uint16_t StreamData(uint32_t NumberOfSamples, uint8_t bufferIndex, volatile uint16_t* DMAbufferAddress, volatile size_t old_buffer_, volatile size_t buffer_) {
     // number of values to stream
     uint32_t nvalues = 0;
     // position in the stream buffer
@@ -378,27 +368,27 @@ uint16_t StreamData(uint32_t NumberOfSamples, uint8_t bufferIndex, volatile size
      *  ring buffer did not wrap
      *  no problem data are in the right consecutive order
      */
-		if(old_buffer_ < buffer_) {
-		// consecutive order
-			for(size_t i = old_buffer_; i < buffer_; i++) {
-				streamBuffer[bufferIndex][posStreamBuffer++] = buffer[i].v_adc0;
-				nvalues++;
-			}
+    		if(old_buffer_ < buffer_) {
+    		// consecutive order
+      			for(size_t i = old_buffer_; i < buffer_; i++) {
+        				streamBuffer[bufferIndex][posStreamBuffer++] = *(DMAbufferAddress + i);
+        				nvalues++;
+      			}
 		}
     /* CASE II
      *  ring buffer wrapped
      *  take data from old position until the end of the buffer and start over from the beginning
      */
-	else {
-        for(size_t i = old_buffer_; i < BUFFERSIZE; i++) {
-			streamBuffer[bufferIndex][posStreamBuffer++] = buffer[i].v_adc0;
-			nvalues++;
+        else {
+            for(size_t i = old_buffer_; i < BUFFERSIZE; i++) {
+    			      streamBuffer[bufferIndex][posStreamBuffer++] = *(DMAbufferAddress + i);
+    			      nvalues++;
+            }
+            for(size_t i = 0; i < buffer_; i++) {
+    			      streamBuffer[bufferIndex][posStreamBuffer++] = *(DMAbufferAddress + i);
+    			      nvalues++;
+            }
         }
-        for(size_t i = 0; i < buffer_; i++) {
-			streamBuffer[bufferIndex][posStreamBuffer++] = buffer[i].v_adc0;
-			nvalues++;
-        }
-      }
     }
 
     /* Stream data of the stream buffer
