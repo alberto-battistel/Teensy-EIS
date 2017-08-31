@@ -12,17 +12,18 @@
 #include "Waveforms_Gen.h"  // matlab generated
 #define pinDAC A22
 
-IntervalTimer timer0;
+IntervalTimer timerDAC;
 
 volatile int t = 0;
+uint16_t DelayDAC = 100; // in us
 
-void timer0_callback() {
-	analogWrite(pinDAC,waveformsTable[t]);
-	t++;
-	if (t >= maxSamplesNum) {
-		t=0;
-	}
-}
+//void timer0_callback() {
+//	analogWrite(pinDAC,waveformsTable[t]);
+//	t++;
+//	if (t >= maxSamplesNum) {
+//		t=0;
+//	}
+//}
 /* end of DAC
  */
 
@@ -30,7 +31,7 @@ void timer0_callback() {
  *  it print info about how many samples are collected per iteration
  *  and timing...
  */
-//#define DEBUG
+#define DEBUG
 
 /* do you want to see the number of iteraion? */
 #define ITERATIONS
@@ -45,7 +46,7 @@ uint32_t maxSamples = 30000;     // stop after
 
 /* Settings for Ring buffer (DMA) and aquisition frequency */
 // DMA buffer size
-#define BUFFERSIZE 16384
+#define BUFFERSIZE 4096
 
 // stream buffer size
 uint16_t streamBuffer[2][BUFFERSIZE];
@@ -86,9 +87,9 @@ bool JustStart = true;
  *  according to the time it takes to send a value (TIME_1VAL) and the aquistion frequency (FREQUENCY)
  *  TIME_1VAL is between 1 and 3 us
  */
- #define BEST_N_VAL 4000
+ #define BEST_N_VAL 500
  #define TIME_1VAL 3e-6   // s
- int32_t Delay_us = max((int32_t)(BEST_N_VAL*(1-TIME_1VAL*FREQUENCY)/FREQUENCY*1e6), 0);    // us
+ int32_t Delay_loop = max((int32_t)(BEST_N_VAL*(1-TIME_1VAL*FREQUENCY)/FREQUENCY*1e6), 0);    // us
 
 
 /*
@@ -123,7 +124,7 @@ void setup() {
      *
      */
     analogWriteResolution(12);
-    timer0.begin(timer0_callback, Delay);
+    timerDAC.begin(DAC_callback, DelayDAC);
     pinMode(pinDAC,OUTPUT);
     analogWrite(pinDAC,0);
     //
@@ -133,28 +134,9 @@ void setup() {
 
     //~ constexpr uint32_t pdb_trigger_frequency = FREQUENCY;
     uint32_t pdb_trigger_frequency = FREQUENCY;
-    adc.setAveraging(AVERAGE);
-    adc.setResolution(RESOLUTION);
-
-    adc.setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED);
-    adc.setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED);
-
-    adc.setAveraging(AVERAGE, ADC_1); // set number of averages
-    adc.setResolution(RESOLUTION, ADC_1); // set bits of resolution
-
-    adc.setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED, ADC_1); // change the conversion speed
-    adc.setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED, ADC_1); // change the sampling speed
-
-    adc.adc0->analogRead(adc_pin0); // performs various ADC setup stuff
-    adc.adc1->analogRead(adc_pin1); // performs various ADC setup stuff
-
-    if(adc.adc0->fail_flag || adc.adc1->fail_flag) {
-        Serial.printf("ADC error, ADC0: %x ADC1: %x\n", adc.adc0->fail_flag, adc.adc1->fail_flag);
-    }
-
-    adc.adc0->stopPDB();
-    adc.adc1->stopPDB();
-
+    
+    setADC(AVERAGE, RESOLUTION);
+    
     dma0.source((uint16_t&) ADC0_RA); // ADC result register
     //dma0.source(ADC0_RA); // ADC result register
     dma0.triggerAtHardwareEvent(DMAMUX_SOURCE_ADC0);
@@ -180,10 +162,7 @@ void setup() {
 
     // enable PDB
     SIM_SCGC6 |= SIM_SCGC6_PDB;
-    // constexpr uint32_t pdb_trigger_frequency = 10000;
-//    constexpr uint32_t mod = (F_BUS / pdb_trigger_frequency);
-    uint32_t mod = (F_BUS / pdb_trigger_frequency);
-//    static_assert(mod <= 0x10000, "Prescaler required.");
+    uint32_t mod = (F_BUS / pdb_trigger_frequency);   // PDB frequency
     assert(mod <= 0x10000);
     PDB0_MOD = (uint16_t)(mod-1);
     PDB0_CH0C1 = PDB_CHnC1_TOS_1 | PDB_CHnC1_EN_1; // PDB triggers ADC0 SC1A
@@ -206,10 +185,11 @@ void setup() {
     }
     while (Serial.available() > 0) Serial.read();
     Serial.println("Go!");
+    
     // Kick off ADC conversion.
-    PDB0_SC = ADC_PDB_CONFIG | PDB_SC_PRESCALER(0) | PDB_SC_MULT(0) | PDB_SC_SWTRIG; // start
-
-    delayMicroseconds(Delay_us);
+    startConversion();
+    
+    delayMicroseconds(Delay_loop);
 }
 
 
@@ -278,7 +258,7 @@ void loop() {
 		Serial.println(" us");
 
 		Serial.print("delay time in the loop: ");
-		Serial.print(Delay_us);
+		Serial.print(Delay_loop);
 		Serial.println(" us");
 
 		Serial.print("Current Buffer index DMA is writing to: ");
@@ -320,7 +300,7 @@ void loop() {
     /* Delay the next iteration
      *  it is used to have a good number of samples streamed (ideally 50)
      */
-    delayMicroseconds(Delay_us);
+    delayMicroseconds(Delay_loop);
 }
 
 
@@ -329,6 +309,53 @@ void loop() {
 /*
  * Function declaration
  */
+
+/*  DAC callback
+ *  this is called at DelayDAC time by the timerDAC
+ */
+void DAC_callback() {
+  analogWrite(pinDAC,waveformsTable[t]);
+  t++;
+  if (t >= maxSamplesNum) {
+    t=0;
+  }
+}
+
+
+/*  Start conversion for ADC DMA stuff
+ * 
+ */
+void startConversion()  {
+    PDB0_SC = ADC_PDB_CONFIG | PDB_SC_PRESCALER(0) | PDB_SC_MULT(0) | PDB_SC_SWTRIG; // start
+}
+
+/*  set ADC parameters
+ *  average, resoltution
+ */
+ 
+ void setADC(int8_t ADC_average, int8_t ADC_resolution)	{
+    adc.setAveraging(ADC_average);
+    adc.setResolution(ADC_resolution);
+
+    adc.setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED);
+    adc.setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED);
+
+    adc.setAveraging(ADC_average, ADC_1); // set number of averages
+    adc.setResolution(ADC_resolution, ADC_1); // set bits of resolution
+
+    adc.setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED, ADC_1); // change the conversion speed
+    adc.setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED, ADC_1); // change the sampling speed
+
+    adc.adc0->analogRead(adc_pin0); // performs various ADC setup stuff
+    adc.adc1->analogRead(adc_pin1); // performs various ADC setup stuff
+
+    if(adc.adc0->fail_flag || adc.adc1->fail_flag) {
+        Serial.printf("ADC error, ADC0: %x ADC1: %x\n", adc.adc0->fail_flag, adc.adc1->fail_flag);
+    }
+
+    adc.adc0->stopPDB();
+    adc.adc1->stopPDB(); 
+}
 
 /* Stream data
  *  take from DMA buffer, transfer to stream buffer, and stream
