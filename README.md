@@ -12,14 +12,16 @@ ADC-DAC/example_DAC contains an example on how to use the DAC from a series of d
 ## 3 - Most updated part
 In ADC-DAC there is a sketch and a python script to run a simple experiment. DAC and ADC work together and stream the data to python which collect and plot. Start the sketch first and then the script. This works very fine. It streams both channels, but because of an error in StreamData (it misses a pointer) the second stream is the same as the first . 
 
-## 4 - Random things
+## 4 - Analog front-end
+In analog front-end I am collecting all the info for the analog part. 
+
+## 5 - Random things
 In justTest/ there are some python files to fetch the stream/data on the computer (I use an Ubuntu 16.04 at the moment). I should clean here.
 
-## 5 - prototype script for Serial communication and fetching data with python
+## 6 - prototype script for Serial communication and fetching data with python
 justTest/readFromPython is a prototype communication between teensy and python. I should clean here. 
 
-## 6 - Most of the files 
+## 7 - Most of the files 
 The rest is a collection of random matlab to plot or collect the data from the Arduino serial monitor. Clean also here.
 
-**30Aug2017 - Test commit by Chris
-**31Aug2017 - Very good Chris
+
