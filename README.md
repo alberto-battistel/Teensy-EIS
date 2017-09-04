@@ -15,13 +15,16 @@ In ADC-DAC there is a sketch and a python script to run a simple experiment. DAC
 ## 4 - Analog front-end
 In analog front-end I am collecting all the info for the analog part. 
 
-## 5 - Random things
+## 5 - Control flow
+In Schematics there are the diagrams of the programs.
+
+## 6 - Random things
 In justTest/ there are some python files to fetch the stream/data on the computer (I use an Ubuntu 16.04 at the moment). I should clean here.
 
-## 6 - prototype script for Serial communication and fetching data with python
+## 7 - prototype script for Serial communication and fetching data with python
 justTest/readFromPython is a prototype communication between teensy and python. I should clean here. 
 
-## 7 - Most of the files 
+## 8 - Most of the files 
 The rest is a collection of random matlab to plot or collect the data from the Arduino serial monitor. Clean also here.
 
 
