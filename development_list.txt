@@ -1,0 +1,26 @@
+#List of things to implement
+
+## Add license
+
+## Loop microcontroller
+activate DAC2 for voltage shift
+make functions in the sketch
+loop the aquisition for listening from the PC
+
+## Loop python control
+Send parameters (Pingpong script)
+make analysis (FFT)
+
+## Analog front-end
+for DAC (voltage divider, voltage shift, activation relay)
+for ADC (voltage shift)
+
+## Real experiment
+digital test (impendance DAC vs 2*ADC) to see resolution, linearity
+real analog experiment interfaced with a potentiostat
+
+## Future staff
+Raspberry PI
+portable potentiostat
+different experiments (CV, battery cycles)
+GUI
