@@ -27,4 +27,14 @@ justTest/readFromPython is a prototype communication between teensy and python. 
 ## 8 - Most of the files 
 The rest is a collection of random matlab to plot or collect the data from the Arduino serial monitor. Clean also here.
 
+------------------------------------
+# Bug List:
+So we can keep track of what needs to be fixed
 
+-To be filled (Priority: 1)
+
+
+# Future Feature List:
+So we can remember all the ideas we have
+
+-To be filled (Priority: 1)
