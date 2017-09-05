@@ -35,6 +35,19 @@ teensy.reset_input_buffer()
 teensy.write('S0'.encode('utf-8'))
 teensy.flush()
 
+print(1)
+print(teensy.readline())
+#time.sleep(1)
+teensy.write('F2222 N1000 R32 A8 D100 T0 S0'.encode('utf-8'))
+teensy.flush()
+
+print(2)
+print(teensy.readline())
+
+teensy.write('S2'.encode('utf-8'))
+teensy.flush()
+
+print(3)
 print(teensy.readline())
 
 ##%%
