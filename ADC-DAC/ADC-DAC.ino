@@ -1,6 +1,7 @@
 #include <ADC.h>
 #include <DMAChannel.h>
 #include <array>
+#include "DefaultParameters.h"
 #include "DAC.h"
 #include "PingPong.h"   // contains function to get Parameters from Python
 
@@ -8,7 +9,7 @@
  *  it print info about how many samples are collected per iteration
  *  and timing...
  */
-#define DEBUG
+//#define DEBUG
 
 // ADC pins 
 const uint8_t adc_pin0 = A9;  // digital pin 23, on ADC0
@@ -84,45 +85,12 @@ void setup() {
     // DAC
     analogWriteResolution(12);
     pinMode(pinDAC,OUTPUT);
-    timerDAC.begin(DAC_callback, Parameters.DAC_delay);
 
     // ADC
     pinMode(adc_pin0, INPUT);
     pinMode(adc_pin1, INPUT);
-
-    // set ADC average and resolution
-    setADC(Parameters.ADC_average, Parameters.ADC_resolution);
-
-    // DMA
-    dma0.source((uint16_t&) ADC0_RA); // ADC result register
-    //dma0.source(ADC0_RA); // ADC result register
-    dma0.triggerAtHardwareEvent(DMAMUX_SOURCE_ADC0);
-    dma0.destinationBuffer(&buffer[0].v_adc0, buffer.size() * sizeof(buffer[0]));
-    dma0.TCD->DOFF = 4;
-    dma0.TCD->CITER = buffer.size();
-    dma0.TCD->BITER = buffer.size();
-    dma0.enable();
-    adc.enableDMA(ADC_0);
-
-    dma1.source((uint16_t&) ADC1_RA); // ADC result register
-    //dma1.source(ADC1_RA); // ADC result register
-    dma1.triggerAtHardwareEvent(DMAMUX_SOURCE_ADC1);
-    dma1.destinationBuffer(&buffer[0].v_adc1, buffer.size() * sizeof(buffer[0]));
-    dma1.TCD->DOFF = 4;
-    dma1.TCD->CITER = buffer.size();
-    dma1.TCD->BITER = buffer.size();
-    dma1.enable();
-    adc.enableDMA(ADC_1);
-
-    adc.adc0->setHardwareTrigger();
-    adc.adc1->setHardwareTrigger();
-	
-	  // calculate how much delay in the loop
-	  Delay_loop =  calculateDelay_loop(Parameters.ADC_frequency);
-	
-    // enable PDB
-    setPDB(Parameters.ADC_frequency);
-
+    activateADC();
+    
     // wait for input
     #ifdef DEBUG
     Serial.println("Bebugging is on!");
@@ -135,14 +103,33 @@ void setup() {
         Serial.send_now();
         delay(500);
     }
-    // get parameters from the pc
-    while (Parameters.StartStop == 1) pingPongParameters();
-    Serial.println("Go!");
+//    // get parameters from the pc
+//    while (Parameters.StartStop == 1) pingPongParameters();
+//
+//    // start everything
+//    // DAC
+//    timerDAC.begin(DAC_callback, Parameters.DAC_delay);
+//    
+//    // set ADC average and resolution
+//    setADC(Parameters.ADC_average, Parameters.ADC_resolution);
+//
+//    // calculate how much delay in the loop
+//    Delay_loop =  calculateDelay_loop(Parameters.ADC_frequency);
+//    
+//    // enable PDB
+//    setPDB(Parameters.ADC_frequency);
+//    
+//    // Kick off ADC conversion.
+//    startConversion();
+//
+//    Serial.println("Go!");
+//    
+//    delayMicroseconds(Delay_loop);
+
     
-    // Kick off ADC conversion.
-    startConversion();
-    
-    delayMicroseconds(Delay_loop);
+//adc.adc0->analogRead(adc_pin0); // performs various ADC setup stuff
+//adc.adc1->analogRead(adc_pin1); // performs various ADC setup stuff
+
 }
 
 
@@ -150,28 +137,68 @@ void setup() {
  * loop
  */
 void loop() {
-    // stop when it reaches the right number of samples
-    #ifdef DEBUG
-    if (stop4Samples[0]) Serial.println("Done 0");
-    if (stop4Samples[1]) Serial.println("Done 1");
-    Serial.print("Iteration: ");
-    Serial.println(Iterations++);
-    #endif
 
-    // 
-    // !!!!!!!!!!!!!!!!!!!!!!!
-    
-    if (Parameters.StartStop == 1) exit(0);
 
-    // !!!!!!!!!!!!!!!!!!!!!!!
-    //
+
     
-    /* Read position on DMA buffer
-     */
-    noInterrupts();
-    buffer_idx0 = (((uint16_t*) dma0.destinationAddress()) - &buffer[0].v_adc0) / 2;
-    buffer_idx1 = (((uint16_t*) dma1.destinationAddress()) - &buffer[0].v_adc1) / 2;
-    interrupts();
+    switch (Parameters.StartStop) {
+        case 2: {
+            exit(0);
+            break;
+        }
+        case 1: {
+            // get parameters from the pc
+            while (Parameters.StartStop == 1) pingPongParameters();
+            
+            // start everything
+            // DAC
+            timerDAC.begin(DAC_callback, Parameters.DAC_delay);
+            
+            // set ADC average and resolution
+            setADC(Parameters.ADC_average, Parameters.ADC_resolution);
+            
+            // calculate how much delay in the loop
+            Delay_loop =  calculateDelay_loop(Parameters.ADC_frequency);
+            
+            // enable PDB
+            setPDB(Parameters.ADC_frequency);
+            
+            // Kick off ADC conversion.
+            startConversion();
+            
+            // restart counting of samples
+            counterSamplesADC0 = 0;
+            counterSamplesADC1 = 0;
+            
+            // restart index of DMA buffer
+            old_buffer_idx0 = 0;
+            old_buffer_idx1 = 0;
+
+            // flag 
+            Parameters.ADC_enoughSamples[0] = false;
+            Parameters.ADC_enoughSamples[1] = false;
+
+            
+            Serial.println("Go!");
+            
+            delayMicroseconds(Delay_loop);
+        }      
+        default:  {
+            // Read position on DMA buffer
+            noInterrupts();
+            buffer_idx0 = (((uint16_t*) dma0.destinationAddress()) - &buffer[0].v_adc0) / 2;
+            buffer_idx1 = (((uint16_t*) dma1.destinationAddress()) - &buffer[0].v_adc1) / 2;
+            interrupts();
+
+            #ifdef DEBUG
+            // count iterations and tell when an ADC finishes
+            if (Parameters.ADC_enoughSamples[0]) Serial.println("ADC0 Done!");
+            if (Parameters.ADC_enoughSamples[1]) Serial.println("ADC1 Done!");
+            Serial.print("Iteration: ");
+            Serial.println(Iterations++);      
+            #endif
+        }
+    }
 
     // number of values streamed
     uint16_t nvalues0;
@@ -191,17 +218,19 @@ void loop() {
     counterSamplesADC1 = counterSamplesADC1 + (uint32_t)nvalues1;
     }
 
-  	#ifdef DEBUG
-  	printAllInfo();
-  	#endif
-	
+    #ifdef DEBUG
+    printAllInfo();
+    #endif
+  
     // get last position in the ring buffer
     old_buffer_idx0 = buffer_idx0;
     old_buffer_idx1 = buffer_idx1;
 
     // no idea, it was here already
     if(adc.adc0->fail_flag || adc.adc1->fail_flag) {
-    Serial.printf("ADC error, ADC0: %x ADC1: %x\n", adc.adc0->fail_flag, adc.adc1->fail_flag);
+        Serial.println("ADC error in the loop");
+        adc.adc0->printError();
+        adc.adc1->printError();
     }
 
     /* Delay the next iteration
@@ -212,4 +241,5 @@ void loop() {
 
 // all functions are defined in .h files
 // I know it is not the good way, but I could not make work .cpp files...
+
 

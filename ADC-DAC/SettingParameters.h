@@ -76,15 +76,53 @@ void startConversion()  {
     adc.setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED, ADC_1); // change the conversion speed
     adc.setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED, ADC_1); // change the sampling speed
 
-    adc.adc0->analogRead(adc_pin0); // performs various ADC setup stuff
-    adc.adc1->analogRead(adc_pin1); // performs various ADC setup stuff
+//    adc.adc0->analogRead(adc_pin0); // performs various ADC setup stuff
+//    adc.adc1->analogRead(adc_pin1); // performs various ADC setup stuff
 
     if(adc.adc0->fail_flag || adc.adc1->fail_flag) {
-        Serial.printf("ADC error, ADC0: %x ADC1: %x\n", adc.adc0->fail_flag, adc.adc1->fail_flag);
+        Serial.println("In setADC:");
+        adc.adc0->printError();
+        adc.adc1->printError();
+    
+        //Serial.printf("ADC error, ADC0: %x ADC1: %x\n", adc.adc0->fail_flag, adc.adc1->fail_flag);
     }
 
     adc.adc0->stopPDB();
     adc.adc1->stopPDB(); 
+
+    // DMA
+    dma0.source((uint16_t&) ADC0_RA); // ADC result register
+    //dma0.source(ADC0_RA); // ADC result register
+    dma0.triggerAtHardwareEvent(DMAMUX_SOURCE_ADC0);
+    dma0.destinationBuffer(&buffer[0].v_adc0, buffer.size() * sizeof(buffer[0]));
+    dma0.TCD->DOFF = 4;
+    dma0.TCD->CITER = buffer.size();
+    dma0.TCD->BITER = buffer.size();
+    dma0.enable();
+    adc.enableDMA(ADC_0);
+
+    dma1.source((uint16_t&) ADC1_RA); // ADC result register
+    //dma1.source(ADC1_RA); // ADC result register
+    dma1.triggerAtHardwareEvent(DMAMUX_SOURCE_ADC1);
+    dma1.destinationBuffer(&buffer[0].v_adc1, buffer.size() * sizeof(buffer[0]));
+    dma1.TCD->DOFF = 4;
+    dma1.TCD->CITER = buffer.size();
+    dma1.TCD->BITER = buffer.size();
+    dma1.enable();
+    adc.enableDMA(ADC_1);
+
+    adc.adc0->setHardwareTrigger();
+    adc.adc1->setHardwareTrigger();
+    
+}
+
+/*  Activate ADC
+ *  it needs to run only once
+ */
+
+void activateADC()  {
+    adc.adc0->analogRead(adc_pin0); // performs various ADC setup stuff
+    adc.adc1->analogRead(adc_pin1); // performs various ADC setup stuff
 }
 
 /* Stream data
@@ -142,11 +180,11 @@ void startConversion()  {
   // it is reaching the right number of samples to stream
     uint32_t samplesTooMuch = NumberOfSamples + nvalues - Parameters.ADC_nSamples;
     last2Stream = posStreamBuffer - (uint16_t)samplesTooMuch;
-    stop4Samples[bufferIndex] = true;
+    Parameters.ADC_enoughSamples[bufferIndex] = true;
     streamData = true;
     }
   
-  if (stop4Samples[0] && stop4Samples[1]) {
+  if (Parameters.ADC_enoughSamples[0] && Parameters.ADC_enoughSamples[1]) {
     // ready to receive new parameters
     Parameters.StartStop = 1;
     }
