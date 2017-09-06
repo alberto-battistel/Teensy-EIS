@@ -3,10 +3,9 @@
 #include "PingPong.h"  
 
 
-// Delay for the communication of the parameters
-//int communicationDelay = 10;      // delay for serial communication
 
-//struct parameters4measurement Parameters;
+
+
 
 /*
  * Setup
