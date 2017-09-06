@@ -103,33 +103,6 @@ void setup() {
         Serial.send_now();
         delay(500);
     }
-//    // get parameters from the pc
-//    while (Parameters.StartStop == 1) pingPongParameters();
-//
-//    // start everything
-//    // DAC
-//    timerDAC.begin(DAC_callback, Parameters.DAC_delay);
-//    
-//    // set ADC average and resolution
-//    setADC(Parameters.ADC_average, Parameters.ADC_resolution);
-//
-//    // calculate how much delay in the loop
-//    Delay_loop =  calculateDelay_loop(Parameters.ADC_frequency);
-//    
-//    // enable PDB
-//    setPDB(Parameters.ADC_frequency);
-//    
-//    // Kick off ADC conversion.
-//    startConversion();
-//
-//    Serial.println("Go!");
-//    
-//    delayMicroseconds(Delay_loop);
-
-    
-//adc.adc0->analogRead(adc_pin0); // performs various ADC setup stuff
-//adc.adc1->analogRead(adc_pin1); // performs various ADC setup stuff
-
 }
 
 
@@ -137,10 +110,6 @@ void setup() {
  * loop
  */
 void loop() {
-
-
-
-    
     switch (Parameters.StartStop) {
         case 2: {
             exit(0);
@@ -177,8 +146,7 @@ void loop() {
             // flag 
             Parameters.ADC_enoughSamples[0] = false;
             Parameters.ADC_enoughSamples[1] = false;
-
-            
+           
             Serial.println("Go!");
             
             delayMicroseconds(Delay_loop);
