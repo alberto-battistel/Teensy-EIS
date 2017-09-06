@@ -2,19 +2,11 @@
 #include <DMAChannel.h>
 #include <array>
 #include <assert.h>
+#include "DAC.h"
 
-
-
-/* DAC part
- * it comes from example_DAC
- * place Waveforms_Gen.h in the same folder
+/*
+ * DAC delay
  */
-#include "Waveforms_Gen.h"  // matlab generated
-#define pinDAC A22
-
-IntervalTimer timerDAC;
-
-volatile uint32_t counterDAC = 0;
 uint16_t DelayDAC = 100; // in us
 
 /* do you want to check timing?
@@ -115,8 +107,8 @@ void setup() {
      */
     analogWriteResolution(12);
     timerDAC.begin(DAC_callback, DelayDAC);
-    pinMode(pinDAC,OUTPUT);
-    analogWrite(pinDAC,0);
+    //pinMode(pinDAC,OUTPUT);
+    //analogWrite(pinDAC,0);
     //
 
     pinMode(adc_pin0, INPUT);
@@ -299,17 +291,6 @@ void loop() {
 /*
  * Function declaration
  */
-
-/*  DAC callback
- *  this is called at DelayDAC time by the timerDAC
- */
-void DAC_callback() {
-    analogWrite(pinDAC,waveformsTable[counterDAC]);
-    counterDAC++;
-    if (counterDAC >= maxSamplesNum) {
-        counterDAC = 0;
-    }
-}
 
 
 /*  Start conversion for ADC DMA stuff
