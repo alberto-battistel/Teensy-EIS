@@ -14,6 +14,8 @@ make analysis (FFT)
 ## Analog front-end
 for DAC (voltage divider, voltage shift, activation relay)
 for ADC (voltage shift)
+transistor to drive the relay from the Teensy
+additional transistors for 5V communication (trigger instrument)
 
 ## Real experiment
 digital test (impendance DAC vs 2*ADC) to see resolution, linearity
