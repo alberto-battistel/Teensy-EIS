@@ -185,9 +185,9 @@ void printAllInfo()  {
       
     Serial.println();
     Serial.print("Number of values: ");
-    Serial.print(nvalues0);
+    Serial.print(counterSamplesADC0);
     Serial.print(", ");
-    Serial.println(nvalues1);
+    Serial.println(counterSamplesADC1);
 
     time_us = micros()-time_us;
     Serial.print("time: ");
@@ -208,7 +208,7 @@ void printAllInfo()  {
     Serial.print(", ");
     Serial.println(old_buffer_idx1);
 
-    float us4value = (float)time_us/(float)nvalues0;
+    float us4value = (float)time_us/(float)counterSamplesADC0;
     Serial.print("us for value: ");
     Serial.println(us4value);
 

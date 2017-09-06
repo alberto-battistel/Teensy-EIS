@@ -1,15 +1,18 @@
 #include <ADC.h>
 #include <DMAChannel.h>
 #include <array>
-//#include <assert.h>
 #include "DAC.h"
 #include "PingPong.h"   // contains function to get Parameters from Python
+
+/* do you want to check timing?
+ *  it print info about how many samples are collected per iteration
+ *  and timing...
+ */
+#define DEBUG
 
 // ADC pins 
 const uint8_t adc_pin0 = A9;  // digital pin 23, on ADC0
 const uint8_t adc_pin1 = A19; // digital pin 31, on ADC1
-
-
 
 /* Count number of samples
  *  allow to stop the stream after collecting maxSamples
@@ -36,7 +39,11 @@ unsigned long time_us = 0;
 int16_t Iterations = 0;
 #endif
 
-// store old index of buffer
+// store index of DMA buffer
+volatile size_t buffer_idx0;
+volatile size_t buffer_idx1;
+
+// store old index of DMA buffer
 volatile size_t old_buffer_idx0 = 0;
 volatile size_t old_buffer_idx1 = 0;
 
@@ -128,7 +135,8 @@ void setup() {
         Serial.send_now();
         delay(500);
     }
-    while (Serial.available() > 0) Serial.read();
+    // get parameters from the pc
+    while (Parameters.StartStop == 1) pingPongParameters();
     Serial.println("Go!");
     
     // Kick off ADC conversion.
@@ -146,7 +154,7 @@ void loop() {
     #ifdef DEBUG
     if (stop4Samples[0]) Serial.println("Done 0");
     if (stop4Samples[1]) Serial.println("Done 1");
-    Serial.print("Iteration: ")
+    Serial.print("Iteration: ");
     Serial.println(Iterations++);
     #endif
 
@@ -161,8 +169,8 @@ void loop() {
     /* Read position on DMA buffer
      */
     noInterrupts();
-    size_t buffer_idx0 = (((uint16_t*) dma0.destinationAddress()) - &buffer[0].v_adc0) / 2;
-    size_t buffer_idx1 = (((uint16_t*) dma1.destinationAddress()) - &buffer[0].v_adc1) / 2;
+    buffer_idx0 = (((uint16_t*) dma0.destinationAddress()) - &buffer[0].v_adc0) / 2;
+    buffer_idx1 = (((uint16_t*) dma1.destinationAddress()) - &buffer[0].v_adc1) / 2;
     interrupts();
 
     // number of values streamed
