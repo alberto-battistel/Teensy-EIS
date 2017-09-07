@@ -31,11 +31,6 @@ def ReceiveData(list4Info, list4Bytes):
     StreamNotCompleted = [True, True]
     while all(StreamNotCompleted):
         "Read data."
-#        byteIterations = teensy.readline()
-#        if byteIterations is b'':
-#            break
-#        Iterations = int(byteIterations.decode('utf-8'))
-#        print("\nIterations: %d" % Iterations)
         for ADC in range(len(totalLength)):
             #print("%d\tWaiting Byte: \t%d" % (ADC, teensy.inWaiting()))        
             blockInfo = teensy.readline()
@@ -54,9 +49,9 @@ def ReceiveData(list4Info, list4Bytes):
             byteBlock = teensy.read(byte2read) # read bytes 
             StackOfBytes[ADC].append(byteBlock)
             totalLength[ADC] = totalLength[ADC] + len(byteBlock)
-            print("Byte to read \t%d" % (byte2read/2))
+            #print("Byte to read \t%d" % (byte2read/2))
             #print("%d\tWaiting Byte: \t%d" % (ADC, teensy.inWaiting()))      
-            print("%d\tLength: \t%d" % (ADC, (totalLength[ADC]/2)))
+            #print("%d\tLength: \t%d" % (ADC, (totalLength[ADC]/2)))
     
     list4Info.append(StackOfInfo)
     list4Bytes.append(StackOfBytes)
@@ -90,11 +85,15 @@ ListOfInfo = []
 
 #%%
 "List of Parameters to pass to Teensy"
-ListOfParameters = ['A32 R16 N1000 F1000 D100 T0 S0', 
-                    'A32 R16 N1500 F2000 D100 T0 S0', 
-                    'A32 R16 N2000 F3000 D100 T0 S0',
+ListOfParameters = ['A1 R8 N2000 F200000 D2 T0 S0', 
+                    'A1 R8 N2000 F100000 D4 T0 S0', 
+                    'A1 R12 N2000 F50000 D8 T0 S0',
                     'S2']
                     
+#%% N/F/(D*10): 10 points per period
+fftParameters = [2000/200e3/(2e-6*10), 
+                 2000/100e3/(4e-6*10),
+                 2000/50e3/(8e-6*10)]
 #%% 
 for i in range(len(ListOfParameters)-1):                   
     """Tell teensy you are ready (it is just waiting for some bytes)."""
@@ -110,29 +109,37 @@ for i in range(len(ListOfParameters)-1):
     
     ReceiveData(ListOfInfo, ListOfBytes)  
 
-#%% 
 
-      
+#%%
+"""Convert the list into an array."""  
+data = [[], []] 
+for i in range(len(ListOfParameters)-1):     
+    for ADC in range(0,2):
+        lengthList = 0
+        for iBlock in range(len(ListOfBytes[ADC][i])):
+            lengthList = lengthList + len(ListOfBytes[ADC][i][iBlock])/2
     
-      
-##%%
-#"""Convert the list into an array."""  
-#data = [[], []] 
-#for ch in range(len(totalLength)):     
-#    lengthList = 0
-#    for i in range(0,len(byteDataList[ch])):
-#        lengthList = lengthList+len(byteDataList[ch][i])/2
-#    
-#    print("Length of streamed data: \t%d" % lengthList)
-#    data[ch] = np.zeros([int(lengthList)], dtype=np.uint16)
-#    
-#    position1 = 0;
-#    for i in range(0,len(byteDataList[ch])):
-#        position2 = position1+int(len(byteDataList[ch][i])/2)
-#        data[ch][position1:position2] = np.fromstring(byteDataList[ch][i], dtype=np.uint16)
-#        position1 = position2
-#
-##%%
+        print("Length of streamed data: \t%d" % ADC, lengthList)
+        data[ADC].append(np.zeros([int(lengthList),2], dtype=np.uint16))
+    
+        position1 = 0;
+        for iBlock in range(0,len(ListOfBytes[ADC][i])):
+            position2 = position1+int(len(ListOfBytes[ADC][i][iBlock])/2)
+            data[ADC][position1:position2] = np.fromstring(ListOfBytes[ADC][i][iBlock], dtype=np.uint16)
+            position1 = position2
+#%%
+"""Calculate Z"""
+Z = np.zeros([len(ListOfParameters)-1,2], dtype=np.float32) 
+for i in range(len(ListOfParameters)-1):
+    w = np.blackman(len(data[i][0]))
+    w = w/np.trapz(w);
+    A = fft(w*(data[i][0]-np.mean(data[i][0])));
+    w = np.blackman(len(data[i][1]))
+    w = w/np.trapz(w);
+    B = fft(w*(data[i][1]-np.mean(data[i][1])));
+    index = int(fftParameters[i]-1)
+    Z[i] = A[index]/B[index]
+#%%
 #"""Plot."""    
 #pl.subplot(3, 1, 1)
 #pl.plot(data[0])
