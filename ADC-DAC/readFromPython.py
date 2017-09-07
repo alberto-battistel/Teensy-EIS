@@ -16,6 +16,7 @@ import numpy as np
 import pylab as pl
 from scipy.fftpack import fft
 
+numADC = 2
 #%%
 """ Function definition """
 def ReceiveData(list4Info, list4Bytes):
@@ -31,7 +32,7 @@ def ReceiveData(list4Info, list4Bytes):
     StreamNotCompleted = [True, True]
     while all(StreamNotCompleted):
         "Read data."
-        for ADC in range(len(totalLength)):
+        for ADC in range(numADC):
             #print("%d\tWaiting Byte: \t%d" % (ADC, teensy.inWaiting()))        
             blockInfo = teensy.readline()
             StackOfInfo[ADC].append(blockInfo)
@@ -56,7 +57,7 @@ def ReceiveData(list4Info, list4Bytes):
     list4Info.append(StackOfInfo)
     list4Bytes.append(StackOfBytes)
         
-    for ADC in range(len(totalLength)):
+    for ADC in range(numADC):
         print("Byte aquired: \t%d" % totalLength[ADC])
 
 
@@ -85,15 +86,31 @@ ListOfInfo = []
 
 #%%
 "List of Parameters to pass to Teensy"
-ListOfParameters = ['A1 R8 N2000 F200000 D2 T0 S0', 
-                    'A1 R8 N2000 F100000 D4 T0 S0', 
-                    'A1 R12 N2000 F50000 D8 T0 S0',
-                    'S2']
+#ListOfParameters = ['A1 R8 N2000 F200000 D8 T0 S0', 
+#                    'A2 R8 N2000 F100000 D16 T0 S0', 
+#                    'A4 R12 N2000 F50000 D32 T0 S0',
+#                    'S2']
                     
+ListOfParameters = ['A1 R8 N4000 F200000.000 D2 T0 S0',
+'A1 R8 N4000 F112500.000 D4 T0 S0',
+'A1 R8 N4000 F63200.000 D6 T0 S0',
+'A1 R8 N4000 F35600.000 D12 T0 S0',
+'A1 R8 N4000 F20000.000 D20 T0 S0',
+'A1 R8 N4000 F11200.000 D36 T0 S0',
+'A1 R8 N4000 F6300.000 D64 T0 S0',
+'A1 R8 N4000 F3600.000 D112 T0 S0',
+'A1 R8 N4000 F2000.000 D200 T0 S0',
+'A1 R8 N4000 F1100.000 D356 T0 S0',
+'A1 R8 N4000 F600.000 D634 T0 S0',
+'A1 R8 N4000 F400.000 D1136 T0 S0',
+'A1 R8 N4000 F200.000 D2000 T0 S0',
+                    'S2']
 #%% N/F/(D*10): 10 points per period
-fftParameters = [2000/200e3/(2e-6*10), 
-                 2000/100e3/(4e-6*10),
-                 2000/50e3/(8e-6*10)]
+#fftIndex = [2000/200e3/(8e-6*20)/2, 
+#                 2000/100e3/(16e-6*20)/2,
+#                 2000/50e3/(32e-6*20)/2]
+                 
+fftIndex = [500, 444, 527, 468, 500, 496, 496, 496, 500, 511, 526, 440, 500]	  
 #%% 
 for i in range(len(ListOfParameters)-1):                   
     """Tell teensy you are ready (it is just waiting for some bytes)."""
@@ -109,38 +126,65 @@ for i in range(len(ListOfParameters)-1):
     
     ReceiveData(ListOfInfo, ListOfBytes)  
 
-
 #%%
 """Convert the list into an array."""  
-data = [[], []] 
-for i in range(len(ListOfParameters)-1):     
-    for ADC in range(0,2):
+data = [] 
+for i in range(len(ListOfParameters)-1):    
+    StackOfData = [[], []]
+    for ADC in range(numADC):
         lengthList = 0
-        for iBlock in range(len(ListOfBytes[ADC][i])):
-            lengthList = lengthList + len(ListOfBytes[ADC][i][iBlock])/2
+        for iBlock in range(len(ListOfBytes[i][ADC])):
+            lengthList = lengthList + len(ListOfBytes[i][ADC][iBlock])/2
     
         print("Length of streamed data: \t%d" % ADC, lengthList)
-        data[ADC].append(np.zeros([int(lengthList),2], dtype=np.uint16))
+        StackOfData[ADC].append(np.zeros([int(lengthList)], dtype=np.uint16))
     
         position1 = 0;
-        for iBlock in range(0,len(ListOfBytes[ADC][i])):
-            position2 = position1+int(len(ListOfBytes[ADC][i][iBlock])/2)
-            data[ADC][position1:position2] = np.fromstring(ListOfBytes[ADC][i][iBlock], dtype=np.uint16)
+        for iBlock in range(0,len(ListOfBytes[i][ADC])):
+            position2 = position1+int(len(ListOfBytes[i][ADC][iBlock])/2)
+            StackOfData[ADC][position1:position2] = np.fromstring(ListOfBytes[i][ADC][iBlock], dtype=np.uint16)
             position1 = position2
+    data.append(StackOfData)
+            
 #%%
 """Calculate Z"""
-Z = np.zeros([len(ListOfParameters)-1,2], dtype=np.float32) 
+Z = np.zeros([len(ListOfParameters)-1,1], dtype=np.complex) 
 for i in range(len(ListOfParameters)-1):
     w = np.blackman(len(data[i][0]))
     w = w/np.trapz(w);
-    A = fft(w*(data[i][0]-np.mean(data[i][0])));
+    A = fft(w*(data[i][0]-np.mean(data[i][0])))/len(data[i][0]);
     w = np.blackman(len(data[i][1]))
     w = w/np.trapz(w);
-    B = fft(w*(data[i][1]-np.mean(data[i][1])));
-    index = int(fftParameters[i]-1)
+    B = fft(w*(data[i][1]-np.mean(data[i][1])))/len(data[i][1]);
+    index = int(fftIndex[i]-1)
     Z[i] = A[index]/B[index]
+    # plot fft
+    pl.figure(i)
+    pl.clf()
+    pl.subplot(3, 1, 1)
+    pl.title(ListOfParameters[i])
+    pl.plot(data[i][0],'b+-')
+    pl.plot(data[i][1],'g+-')
+    pl.subplot(3, 1, 2)
+    pl.semilogy(abs(A), 'b-')
+    pl.ylabel('A')
+    pl.subplot(3, 1, 3)
+    pl.semilogy(abs(B), 'g-') 
+    pl.ylabel('B')
+    pl.show()
+    
 #%%
-#"""Plot."""    
+"""Plot."""
+pl.figure(10*i)
+pl.clf
+pl.subplot(2, 1, 1)
+pl.plot(abs(Z), 'bs')
+pl.ylim( 0, 1.5 )
+pl.subplot(2, 1, 2)
+pl.plot(np.angle(Z, deg=True), 'gs' ) 
+maxY = np.round(np.max(2*np.angle(Z, deg=True))/10)*10
+pl.ylim( [maxY, 0].sort() )
+pl.show()
 #pl.subplot(3, 1, 1)
 #pl.plot(data[0])
 #pl.plot(data[1])
