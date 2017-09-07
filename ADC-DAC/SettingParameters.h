@@ -21,6 +21,7 @@ uint32_t calculateDelay_loop(float ADC_frequency){
 	 #define BEST_N_VAL 100
 	 #define TIME_1VAL 3e-6   // s
 	 uint32_t Delay_ = max((int32_t)(BEST_N_VAL*(1-TIME_1VAL*Parameters.ADC_frequency)/Parameters.ADC_frequency*1e6), 0);    // us
+   Delay_ = min(Delay_, (uint32_t)100000);  // max 900 ms of delay
 	 return Delay_;
 }
 
@@ -49,6 +50,7 @@ uint32_t calculateDelay_loop(float ADC_frequency){
  */
 void startConversion()  {
     PDB0_SC = ADC_PDB_CONFIG | PDB_SC_PRESCALER(0) | PDB_SC_MULT(0) | PDB_SC_SWTRIG; // start
+    digitalWrite(ledPin, HIGH);   // set the LED on
 }
 
 

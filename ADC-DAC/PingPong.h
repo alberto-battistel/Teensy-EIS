@@ -50,7 +50,8 @@ void obj4Parameters::checkStartStop(float x) {
 	}
 	else if (x >= 1) {
 		// Stop aquisition and wait for more Parameters
-		Parameters.StartStop = 1;    
+		Parameters.StartStop = 1;
+    digitalWrite(ledPin, LOW);    
 	}
 	else {
 		// Start aquisition
@@ -110,7 +111,8 @@ void obj4Parameters::update_value(char letter, float x) {
 			checkADC_Average(x);
 			break;
 		case 'D':   // DAC delay
-			Parameters.DAC_delay = max((uint32_t)2, (uint32_t)x); // not less than 2 us
+			Parameters.DAC_delay = max((uint16_t)2, (uint16_t)x); // not less than 2 us
+      //Serial.println(Parameters.DAC_delay);
 			break;
 		case 'T':   // DAC type
 			checkDAC_Type(x);

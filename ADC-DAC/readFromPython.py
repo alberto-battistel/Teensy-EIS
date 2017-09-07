@@ -32,7 +32,7 @@ def ReceiveData(list4Info, list4Bytes):
     StreamNotCompleted = [True, True]
     while all(StreamNotCompleted):
         "Read data."
-        for ADC in range(numADC):
+        for ADC in range(numADC):         
             #print("%d\tWaiting Byte: \t%d" % (ADC, teensy.inWaiting()))        
             blockInfo = teensy.readline()
             StackOfInfo[ADC].append(blockInfo)
@@ -67,13 +67,13 @@ def ReceiveData(list4Info, list4Bytes):
 Teensy should be on /dev/ttyACM0 (at least on my ubuntu 16.04).
 Remember to close the communication."""
 teensy = serial.Serial('/dev/ttyACM0', 
-                  timeout=3)
+                  timeout=0.2)
 #                  xonxoff=0,
 #                  rtscts=0,
 #                  bytesize=serial.EIGHTBITS,
 #                  parity=serial.PARITY_NONE,
 #                  stopbits=serial.STOPBITS_ONE)
-# Toggle DTR to reset Arduino (I don't know if it is usefull..)
+# Toggle DTR to reset Teensy (This makes it start!!)
 teensy.setDTR(False)
 time.sleep(1)
 teensy.setDTR(True)
@@ -91,27 +91,43 @@ ListOfInfo = []
 #                    'A4 R12 N2000 F50000 D32 T0 S0',
 #                    'S2']
                     
-ListOfParameters = ['A1 R8 N4000 F200000.000 D2 T0 S0',
-'A1 R8 N4000 F112500.000 D4 T0 S0',
-'A1 R8 N4000 F63200.000 D6 T0 S0',
-'A1 R8 N4000 F35600.000 D12 T0 S0',
-'A1 R8 N4000 F20000.000 D20 T0 S0',
-'A1 R8 N4000 F11200.000 D36 T0 S0',
-'A1 R8 N4000 F6300.000 D64 T0 S0',
-'A1 R8 N4000 F3600.000 D112 T0 S0',
-'A1 R8 N4000 F2000.000 D200 T0 S0',
-'A1 R8 N4000 F1100.000 D356 T0 S0',
-'A1 R8 N4000 F600.000 D634 T0 S0',
-'A1 R8 N4000 F400.000 D1136 T0 S0',
-'A1 R8 N4000 F200.000 D2000 T0 S0',
+ListOfParameters = ['A1 R8 N8000 F200000.000 D2 T0 S0',
+'A1 R8 N7988 F126000.000 D4 T0 S0',
+'A1 R8 N7998 F79600.000 D6 T0 S0',
+'A1 R8 N8026 F50400.000 D8 T0 S0',
+'A4 R16 N7975 F31600.000 D14 T0 S0',
+'A4 R16 N8000 F20000.000 D20 T0 S0',
+'A4 R16 N8115 F12800.000 D32 T0 S0',
+'A4 R16 N8038 F8000.000 D50 T0 S0',
+'A4 R16 N8281 F5200.000 D80 T0 S0',
+'A32 R16 N1000 F3200.000 D126 T0 S0',
+'A32 R16 N1000 F2000.000 D200 T0 S0',
+'A32 R16 N1000 F1200.000 D318 T0 S0',
+'A32 R16 N1000 F1000.000 D502 T0 S0',
+'A32 R16 N1000 F1000.000 D796 T0 S0',
+'A32 R16 N1000 F1000.000 D1262 T0 S0',
+'A32 R16 N1000 F1000.000 D2000 T0 S0',
+'A32 R16 N1000 F1000.000 D3170 T0 S0',
+'A32 R16 N1206 F1000.000 D5024 T0 S0',
+'A32 R16 N1911 F1000.000 D7962 T0 S0',
+'A32 R16 N3029 F1000.000 D12620 T0 S0',
+'A32 R16 N4800 F1000.000 D20000 T0 S0',
+'A32 R16 N7607 F1000.000 D31698 T0 S0',
+'A32 R16 N12057 F1000.000 D50238 T0 S0',
+'A32 R16 N19109 F1000.000 D79622 T0 S0',
+'A32 R16 N30286 F1000.000 D126192 T0 S0',
+'A32 R16 N48000 F1000.000 D200000 T0 S0',
                     'S2']
 #%% N/F/(D*10): 10 points per period
 #fftIndex = [2000/200e3/(8e-6*20)/2, 
 #                 2000/100e3/(16e-6*20)/2,
 #                 2000/50e3/(32e-6*20)/2]
                  
-fftIndex = [500, 444, 527, 468, 500, 496, 496, 496, 500, 511, 526, 440, 500]	  
+fftIndex = [500, 396, 419, 498, 451, 500, 495, 502, 498, 62, 
+63, 66, 50, 31, 20, 13, 8, 6, 6, 6, 
+6, 6, 6, 6, 6, 6]	  
 #%% 
+t0 = time.time()
 for i in range(len(ListOfParameters)-1):                   
     """Tell teensy you are ready (it is just waiting for some bytes)."""
     teensy.reset_input_buffer()
@@ -123,9 +139,12 @@ for i in range(len(ListOfParameters)-1):
         parameters = teensy.readline()
         print(parameters.decode('utf-8'))
         continue
-    
+    t1 = time.time()
     ReceiveData(ListOfInfo, ListOfBytes)  
+    print("Aquisition time: %.1f s" % (time.time()-t1))
+    print("\n")
 
+print("Total time: %.1f s" % (time.time()-t0))
 #%%
 """Convert the list into an array."""  
 data = [] 

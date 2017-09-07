@@ -3,7 +3,7 @@
 #include <array>
 #include "DefaultParameters.h"
 #include "DAC.h"
-#include "PingPong.h"   // contains function to get Parameters from Python
+
 
 /* do you want to check timing?
  *  it print info about how many samples are collected per iteration
@@ -14,6 +14,11 @@
 // ADC pins 
 const uint8_t adc_pin0 = A9;  // digital pin 23, on ADC0
 const uint8_t adc_pin1 = A19; // digital pin 31, on ADC1
+// LED pin
+const int ledPin = 13;
+
+// get parameters from the PC
+#include "PingPong.h"   // contains function to get Parameters from Python
 
 /* Count number of samples
  *  allow to stop the stream after collecting maxSamples
@@ -77,6 +82,7 @@ volatile size_t write_pos = 0;
  */
 
 void setup() {
+    pinMode(ledPin, OUTPUT);
     Serial.begin(9600);
     while (!Serial) {
     ; // wait for serial port to connect.
@@ -99,9 +105,12 @@ void setup() {
     Serial.println("Ready!");
     delay(500);
     while (!(Serial.available() > 0))  {
+        digitalWrite(ledPin, HIGH);   // set the LED off
         Serial.println("Waiting...");
         Serial.send_now();
-        delay(500);
+        delay(250);
+        digitalWrite(ledPin, LOW);   // set the LED off
+        delay(250);
     }
 }
 
@@ -117,7 +126,10 @@ void loop() {
         }
         case 1: {
             // get parameters from the pc
+            digitalWrite(ledPin, LOW);   // set the LED off
             while (Parameters.StartStop == 1) pingPongParameters();
+
+            digitalWrite(ledPin, HIGH);   // set the LED on
             
             // start everything
             // DAC
