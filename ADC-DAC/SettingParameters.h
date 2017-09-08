@@ -150,7 +150,7 @@ void activateADC()  {
         if(old_buffer_ < buffer_) {
         // consecutive order
             for(size_t i = old_buffer_; i < buffer_; i++) {
-                streamBuffer[bufferIndex][posStreamBuffer++] = *(DMAbufferAddress + i);
+                streamBuffer[bufferIndex][posStreamBuffer++] = *(DMAbufferAddress + i*sizeof(buffer[0].v_adc0));
                 nvalues++;
             }
     }
@@ -160,11 +160,11 @@ void activateADC()  {
      */
         else {
             for(size_t i = old_buffer_; i < BUFFERSIZE; i++) {
-                streamBuffer[bufferIndex][posStreamBuffer++] = *(DMAbufferAddress + i);
+                streamBuffer[bufferIndex][posStreamBuffer++] = *(DMAbufferAddress + i*sizeof(buffer[0].v_adc0));
                 nvalues++;
             }
             for(size_t i = 0; i < buffer_; i++) {
-                streamBuffer[bufferIndex][posStreamBuffer++] = *(DMAbufferAddress + i);
+                streamBuffer[bufferIndex][posStreamBuffer++] = *(DMAbufferAddress + i*sizeof(buffer[0].v_adc0));
                 nvalues++;
             }
         }

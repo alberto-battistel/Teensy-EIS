@@ -16,6 +16,8 @@ const uint8_t adc_pin0 = A9;  // digital pin 23, on ADC0
 const uint8_t adc_pin1 = A19; // digital pin 31, on ADC1
 // LED pin
 const int ledPin = 13;
+// Realy pin
+const int RelayPin = 24;
 
 // get parameters from the PC
 #include "PingPong.h"   // contains function to get Parameters from Python
@@ -83,6 +85,7 @@ volatile size_t write_pos = 0;
 
 void setup() {
     pinMode(ledPin, OUTPUT);
+    pinMode(RelayPin, OUTPUT);
     Serial.begin(9600);
     while (!Serial) {
     ; // wait for serial port to connect.
@@ -90,7 +93,9 @@ void setup() {
 
     // DAC
     analogWriteResolution(12);
-    pinMode(pinDAC,OUTPUT);
+    pinMode(pinDAC, OUTPUT);
+    pinMode(pinREF, OUTPUT);
+    DACvoltageReference();
 
     // ADC
     pinMode(adc_pin0, INPUT);
@@ -121,7 +126,8 @@ void setup() {
 void loop() {
     switch (Parameters.StartStop) {
         case 2: {
-            exit(0);
+            shutDown();
+            //exit(0);
             break;
         }
         case 1: {
@@ -130,6 +136,7 @@ void loop() {
             while (Parameters.StartStop == 1) pingPongParameters();
 
             digitalWrite(ledPin, HIGH);   // set the LED on
+            digitalWrite(RelayPin, HIGH);
             
             // start everything
             // DAC

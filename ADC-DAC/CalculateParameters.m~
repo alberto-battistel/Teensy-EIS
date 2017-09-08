@@ -4,7 +4,7 @@ clear
 
 %% DAC delay (D)
 f0 = 25e3;
-fn = 2.5;
+fn = 0.25;
 f4dec = 5;
 p4period = 20;
 
@@ -67,7 +67,7 @@ for i = 1:nFrequencies
     nSamples = round(tAquisition*ADC_Frequency(i));
     
     % number_of_samples / ADC_frequency / (DAC_dealy(us) * points_per_period)
-    fftIndex{i,1} = round((nSamples / ADC_Frequency(i)) / (DAC_Delay(i)*1e-6 * p4period));
+    fftIndex{i,1} = round((nSamples / ADC_Frequency(i)) / (DAC_Delay(i)*1e-6 * p4period) / 2);
     
     s = sprintf(string, goodParamerter{l}.A, goodParamerter{l}.R, nSamples, ADC_Frequency(i), DAC_Delay(i));
     Parameters{i,1} = s;  
@@ -82,23 +82,16 @@ totalTime = sum(expectedTime);
 
 fprintf('\n')
 for i = 1:nFrequencies
+
     fprintf('%d, ', fftIndex{i,1})
     if (i/10 == round(i/10))
         fprintf('\n')
     end
 end
 fprintf('\n')
-fprintf('\n')
 
-for i = 1:nFrequencies
-        fprintf('%d, ', frequencyVector(i))
-    if (i/10 == round(i/10))
-        fprintf('\n')
-    end
-end
-fprintf('\n')
-fprintf('\n')
-    
+
+
 fprintf('%d min %d sec\n', floor(totalTime./60),  round(mod(totalTime,60)))
 
 for i = 1:nFrequencies

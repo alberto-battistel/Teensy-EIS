@@ -91,15 +91,15 @@ ListOfInfo = []
 #                    'A4 R12 N2000 F50000 D32 T0 S0',
 #                    'S2']
                     
-ListOfParameters = ['A1 R8 N8000 F200000.000 D2 T0 S0',
-'A1 R8 N7988 F126000.000 D4 T0 S0',
-'A1 R8 N7998 F79600.000 D6 T0 S0',
-'A1 R8 N8026 F50400.000 D8 T0 S0',
-'A4 R16 N7975 F31600.000 D14 T0 S0',
-'A4 R16 N8000 F20000.000 D20 T0 S0',
-'A4 R16 N8115 F12800.000 D32 T0 S0',
-'A4 R16 N8038 F8000.000 D50 T0 S0',
-'A4 R16 N8281 F5200.000 D80 T0 S0',
+ListOfParameters = ['A1 R8 N12000 F200000.000 D2 T0 S0',
+'A1 R8 N11982 F126000.000 D4 T0 S0',
+'A1 R8 N11997 F79600.000 D6 T0 S0',
+'A1 R8 N12039 F50400.000 D8 T0 S0',
+'A4 R16 N11963 F31600.000 D14 T0 S0',
+'A4 R16 N12000 F20000.000 D20 T0 S0',
+'A4 R16 N12172 F12800.000 D32 T0 S0',
+'A4 R16 N12057 F8000.000 D50 T0 S0',
+'A4 R16 N12421 F5200.000 D80 T0 S0',
 'A32 R16 N1000 F3200.000 D126 T0 S0',
 'A32 R16 N1000 F2000.000 D200 T0 S0',
 'A32 R16 N1000 F1200.000 D318 T0 S0',
@@ -112,20 +112,21 @@ ListOfParameters = ['A1 R8 N8000 F200000.000 D2 T0 S0',
 'A32 R16 N1911 F1000.000 D7962 T0 S0',
 'A32 R16 N3029 F1000.000 D12620 T0 S0',
 'A32 R16 N4800 F1000.000 D20000 T0 S0',
-'A32 R16 N7607 F1000.000 D31698 T0 S0',
-'A32 R16 N12057 F1000.000 D50238 T0 S0',
-'A32 R16 N19109 F1000.000 D79622 T0 S0',
-'A32 R16 N30286 F1000.000 D126192 T0 S0',
-'A32 R16 N48000 F1000.000 D200000 T0 S0',
                     'S2']
 #%% N/F/(D*10): 10 points per period
 #fftIndex = [2000/200e3/(8e-6*20)/2, 
 #                 2000/100e3/(16e-6*20)/2,
 #                 2000/50e3/(32e-6*20)/2]
                  
-fftIndex = [500, 396, 419, 498, 451, 500, 495, 502, 498, 62, 
+fftIndex = [750, 594, 628, 746, 676, 750, 743, 754, 746, 62, 
 63, 66, 50, 31, 20, 13, 8, 6, 6, 6, 
-6, 6, 6, 6, 6, 6]	  
+6, 6, 6, 6, 6, 6]	
+
+#%%
+frequencyVector = [2.500000e+04, 1.577393e+04, 9.952679e+03, 6.279716e+03, 3.962233e+03, 2.500000e+03, 1.577393e+03, 9.952679e+02, 6.279716e+02, 3.962233e+02, 
+2.500000e+02, 1.577393e+02, 9.952679e+01, 6.279716e+01, 3.962233e+01, 2.500000e+01, 1.577393e+01, 9.952679e+00, 6.279716e+00, 3.962233e+00, 
+2.500000e+00]
+
 #%% 
 t0 = time.time()
 for i in range(len(ListOfParameters)-1):                   
@@ -193,16 +194,44 @@ for i in range(len(ListOfParameters)-1):
     pl.show()
     
 #%%
+i = 0;
+w = np.blackman(len(data[i][0]))
+w = w/np.trapz(w);
+A = fft(w*(data[i][0]-np.mean(data[i][0])))/len(data[i][0]);
+w = np.blackman(len(data[i][1]))
+w = w/np.trapz(w);
+B = fft(w*(data[i][1]-np.mean(data[i][1])))/len(data[i][1]);
+index = int(fftIndex[i]-1)
+Z[i] = A[index]/B[index]
+# plot fft
+pl.figure(1000)
+pl.clf()
+pl.subplot(2, 1, 1)
+pl.title('25 kHz sinus recorded at 200 kHz')
+pl.semilogy(abs(A), 'b-')
+pl.ylabel('A')
+pl.subplot(2, 1, 2)
+pl.semilogy(abs(B), 'g-') 
+pl.ylabel('B')
+pl.xlabel('Bins')
+pl.show()    
+    
+#%%
 """Plot."""
 pl.figure(10*i)
 pl.clf
 pl.subplot(2, 1, 1)
-pl.plot(abs(Z), 'bs')
-pl.ylim( 0, 1.5 )
+pl.clf
+pl.semilogx(frequencyVector, abs(Z), 'bs')
+pl.ylim( 0.95, 1.05 )
+pl.ylabel('Ratio between channels')
 pl.subplot(2, 1, 2)
-pl.plot(np.angle(Z, deg=True), 'gs' ) 
+pl.clf
+pl.semilogx(frequencyVector, np.angle(Z, deg=True), 'gs' ) 
 maxY = np.round(np.max(2*np.angle(Z, deg=True))/10)*10
 pl.ylim( [maxY, 0].sort() )
+pl.xlabel('Frequency / Hz')
+pl.ylabel('Phaseshift between channels / °')
 pl.show()
 #pl.subplot(3, 1, 1)
 #pl.plot(data[0])

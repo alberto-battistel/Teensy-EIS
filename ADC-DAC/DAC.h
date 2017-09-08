@@ -8,7 +8,15 @@
  
 #include "Waveforms_Gen.h"  // matlab generated
 #define pinDAC A22
+#define pinREF A21
 
+// to make the reference voltage for analog voltage shift
+void DACvoltageReference()  {
+    //0x800 = 2048
+    analogWrite(pinREF, 0x800);
+}
+
+// for signal generator
 IntervalTimer timerDAC;
 
 // to index the DAC vector
