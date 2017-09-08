@@ -92,40 +92,76 @@ ListOfInfo = []
 #                    'S2']
                     
 ListOfParameters = ['A1 R8 N12000 F200000.000 D2 T0 S0',
+'A1 R8 N11995 F158800.000 D4 T0 S0',
 'A1 R8 N11982 F126000.000 D4 T0 S0',
+'A1 R8 N12019 F100400.000 D4 T0 S0',
 'A1 R8 N11997 F79600.000 D6 T0 S0',
+'A1 R8 N11991 F63200.000 D6 T0 S0',
 'A1 R8 N12039 F50400.000 D8 T0 S0',
+'A4 R16 N12028 F40000.000 D10 T0 S0',
 'A4 R16 N11963 F31600.000 D14 T0 S0',
+'A4 R16 N12010 F25200.000 D16 T0 S0',
 'A4 R16 N12000 F20000.000 D20 T0 S0',
+'A4 R16 N12086 F16000.000 D26 T0 S0',
 'A4 R16 N12172 F12800.000 D32 T0 S0',
+'A4 R16 N11972 F10000.000 D40 T0 S0',
 'A4 R16 N12057 F8000.000 D50 T0 S0',
+'A4 R16 N12143 F6400.000 D64 T0 S0',
 'A4 R16 N12421 F5200.000 D80 T0 S0',
-'A32 R16 N1000 F3200.000 D126 T0 S0',
-'A32 R16 N1000 F2000.000 D200 T0 S0',
-'A32 R16 N1000 F1200.000 D318 T0 S0',
-'A32 R16 N1000 F1000.000 D502 T0 S0',
-'A32 R16 N1000 F1000.000 D796 T0 S0',
-'A32 R16 N1000 F1000.000 D1262 T0 S0',
-'A32 R16 N1000 F1000.000 D2000 T0 S0',
-'A32 R16 N1000 F1000.000 D3170 T0 S0',
-'A32 R16 N1206 F1000.000 D5024 T0 S0',
-'A32 R16 N1911 F1000.000 D7962 T0 S0',
-'A32 R16 N3029 F1000.000 D12620 T0 S0',
-'A32 R16 N4800 F1000.000 D20000 T0 S0',
+'A128 R16 N1000 F4000.000 D100 T0 S0',
+'A128 R16 N1000 F3200.000 D126 T0 S0',
+'A128 R16 N1000 F2400.000 D160 T0 S0',
+'A128 R16 N1000 F2000.000 D200 T0 S0',
+'A128 R16 N1000 F1600.000 D252 T0 S0',
+'A128 R16 N1000 F1200.000 D318 T0 S0',
+'A128 R16 N1000 F1200.000 D400 T0 S0',
+'A128 R16 N1000 F1000.000 D502 T0 S0',
+'A128 R16 N1000 F1000.000 D632 T0 S0',
+'A128 R16 N1000 F1000.000 D796 T0 S0',
+'A128 R16 N1000 F1000.000 D1002 T0 S0',
+'A128 R16 N1000 F1000.000 D1262 T0 S0',
+'A128 R16 N1000 F1000.000 D1590 T0 S0',
+'A128 R16 N1000 F1000.000 D2000 T0 S0',
+'A128 R16 N1000 F1000.000 D2518 T0 S0',
+'A128 R16 N1000 F1000.000 D3170 T0 S0',
+'A128 R16 N1000 F1000.000 D3992 T0 S0',
+'A128 R16 N1000 F1000.000 D5024 T0 S0',
+'A128 R16 N1012 F1000.000 D6326 T0 S0',
+'A128 R16 N1274 F1000.000 D7962 T0 S0',
+'A128 R16 N1604 F1000.000 D10024 T0 S0',
+'A128 R16 N2019 F1000.000 D12620 T0 S0',
+'A128 R16 N2542 F1000.000 D15888 T0 S0',
+'A128 R16 N3200 F1000.000 D20000 T0 S0',
+'A128 R16 N4029 F1000.000 D25180 T0 S0',
+'A128 R16 N5072 F1000.000 D31698 T0 S0',
+'A128 R16 N6385 F1000.000 D39906 T0 S0',
+'A128 R16 N8038 F1000.000 D50238 T0 S0',
+'A128 R16 N10119 F1000.000 D63246 T0 S0',
+'A128 R16 N12739 F1000.000 D79622 T0 S0',
+'A128 R16 N16038 F1000.000 D100238 T0 S0',
+'A128 R16 N20191 F1000.000 D126192 T0 S0',
+'A128 R16 N25419 F1000.000 D158866 T0 S0',
+'A128 R16 N32000 F1000.000 D200000 T0 S0',
                     'S2']
 #%% N/F/(D*10): 10 points per period
 #fftIndex = [2000/200e3/(8e-6*20)/2, 
 #                 2000/100e3/(16e-6*20)/2,
 #                 2000/50e3/(32e-6*20)/2]
                  
-fftIndex = [750, 594, 628, 746, 676, 750, 743, 754, 746, 62, 
-63, 66, 50, 31, 20, 13, 8, 6, 6, 6, 
-6, 6, 6, 6, 6, 6]	
+fftIndex = [1500, 944, 1189, 1496, 1256, 1581, 1493, 1504, 1352, 1489, 
+1500, 1453, 1486, 1497, 1507, 1482, 1493, 125, 124, 130, 
+125, 124, 131, 104, 100, 79, 63, 50, 40, 31, 
+25, 20, 16, 13, 10, 8, 8, 8, 8, 8, 
+8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 
+8]	
 
 #%%
-frequencyVector = [2.500000e+04, 1.577393e+04, 9.952679e+03, 6.279716e+03, 3.962233e+03, 2.500000e+03, 1.577393e+03, 9.952679e+02, 6.279716e+02, 3.962233e+02, 
-2.500000e+02, 1.577393e+02, 9.952679e+01, 6.279716e+01, 3.962233e+01, 2.500000e+01, 1.577393e+01, 9.952679e+00, 6.279716e+00, 3.962233e+00, 
-2.500000e+00]
+frequencyVector = [2.500000e+04, 1.985821e+04, 1.577393e+04, 1.252968e+04, 9.952679e+03, 7.905694e+03, 6.279716e+03, 4.988156e+03, 3.962233e+03, 3.147314e+03, 
+2.500000e+03, 1.985821e+03, 1.577393e+03, 1.252968e+03, 9.952679e+02, 7.905694e+02, 6.279716e+02, 4.988156e+02, 3.962233e+02, 3.147314e+02, 
+2.500000e+02, 1.985821e+02, 1.577393e+02, 1.252968e+02, 9.952679e+01, 7.905694e+01, 6.279716e+01, 4.988156e+01, 3.962233e+01, 3.147314e+01, 
+2.500000e+01, 1.985821e+01, 1.577393e+01, 1.252968e+01, 9.952679e+00, 7.905694e+00, 6.279716e+00, 4.988156e+00, 3.962233e+00, 3.147314e+00, 
+2.500000e+00, 1.985821e+00, 1.577393e+00, 1.252968e+00, 9.952679e-01, 7.905694e-01, 6.279716e-01, 4.988156e-01, 3.962233e-01, 3.147314e-01, 
+2.500000e-01]
 
 #%% 
 t0 = time.time()
@@ -193,6 +229,47 @@ for i in range(len(ListOfParameters)-1):
     pl.ylabel('B')
     pl.show()
     
+  
+    
+#%%
+"""Plot."""
+pl.figure(10*i)
+pl.clf
+pl.subplot(2, 1, 1)
+pl.clf
+pl.semilogx(frequencyVector, abs(Z), 'bs')
+#pl.ylim( 0.95, 1.05 )
+pl.ylabel('Ratio between channels')
+pl.subplot(2, 1, 2)
+pl.clf
+pl.semilogx(frequencyVector, np.angle(Z, deg=True), 'gs' ) 
+maxY = np.round(np.max(2*np.angle(Z, deg=True))/10)*10
+pl.ylim( [maxY, 0].sort() )
+pl.xlabel('Frequency / Hz')
+pl.ylabel('Phaseshift between channels / dg')
+pl.show()
+#pl.subplot(3, 1, 1)
+#pl.plot(data[0])
+#pl.plot(data[1])
+#pl.subplot(3, 1, 2)
+#pl.semilogy(abs(fft(data[0]))/len(data[0]))
+#pl.semilogy(abs(fft(data[1]))/len(data[1]))
+#pl.subplot(3, 1, 3)
+#pl.plot(np.diff(np.float32(data[0])))
+#pl.plot(np.diff(np.float32(data[1])))
+#pl.show()
+        
+#%%
+"""Nyquist plot"""
+pl.figure(10000)
+pl.clf
+pl.subplot(1,1,1)
+pl.plot(Z.real, -(Z.imag), 'b+')
+#pl.axis()
+pl.show()
+
+#%%
+
 #%%
 i = 0;
 w = np.blackman(len(data[i][0]))
@@ -214,35 +291,7 @@ pl.subplot(2, 1, 2)
 pl.semilogy(abs(B), 'g-') 
 pl.ylabel('B')
 pl.xlabel('Bins')
-pl.show()    
-    
-#%%
-"""Plot."""
-pl.figure(10*i)
-pl.clf
-pl.subplot(2, 1, 1)
-pl.clf
-pl.semilogx(frequencyVector, abs(Z), 'bs')
-pl.ylim( 0.95, 1.05 )
-pl.ylabel('Ratio between channels')
-pl.subplot(2, 1, 2)
-pl.clf
-pl.semilogx(frequencyVector, np.angle(Z, deg=True), 'gs' ) 
-maxY = np.round(np.max(2*np.angle(Z, deg=True))/10)*10
-pl.ylim( [maxY, 0].sort() )
-pl.xlabel('Frequency / Hz')
-pl.ylabel('Phaseshift between channels / °')
-pl.show()
-#pl.subplot(3, 1, 1)
-#pl.plot(data[0])
-#pl.plot(data[1])
-#pl.subplot(3, 1, 2)
-#pl.semilogy(abs(fft(data[0]))/len(data[0]))
-#pl.semilogy(abs(fft(data[1]))/len(data[1]))
-#pl.subplot(3, 1, 3)
-#pl.plot(np.diff(np.float32(data[0])))
-#pl.plot(np.diff(np.float32(data[1])))
-#pl.show()
+pl.show()  
         
 #%%
 """Close communication."""        

@@ -4,8 +4,8 @@ clear
 
 %% DAC delay (D)
 f0 = 25e3;
-fn = 2.5;
-f4dec = 5;
+fn = 0.25;
+f4dec = 10;
 p4period = 20;
 
 nFrequencies = round((log10(f0)-log10(fn))*f4dec+1);
@@ -43,10 +43,10 @@ goodParamerter{2}.minNPeriod = 1500;
 % low frequency
 goodParamerter{3}.type = 'low';
 goodParamerter{3}.minFreq = 1e-9;
-goodParamerter{3}.A = 32;
+goodParamerter{3}.A = 128;
 goodParamerter{3}.R = 16;
 goodParamerter{3}.N = 1000;
-goodParamerter{3}.minNPeriod = 2*6;
+goodParamerter{3}.minNPeriod = 8;
 
 
 

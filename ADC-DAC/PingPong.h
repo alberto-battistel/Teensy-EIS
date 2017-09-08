@@ -108,7 +108,8 @@ void obj4Parameters::update_value(char letter, float x) {
 			checkADC_Resolution(x);
 			break;
 		case 'A':   // ADC average
-			checkADC_Average(x);
+			//checkADC_Average(x);
+      Parameters.ADC_average = (int)x;
 			break;
 		case 'D':   // DAC delay
 			Parameters.DAC_delay = max((uint32_t)2, (uint32_t)x); // not less than 2 us
