@@ -18,7 +18,7 @@ preMultiplier = 50;
 minOverSampling = 8;
 ADC_Frequency = minOverSampling*preMultiplier*round(frequencyVector/preMultiplier);
 
-minADC_Frequency = 1000; % the PDB cannot go below a certain frequency
+minADC_Frequency = 2000; % the PDB cannot go below a certain frequency
 
 for i = 1:nFrequencies
     ADC_Frequency(i) = max(ADC_Frequency(i), minADC_Frequency);
@@ -46,7 +46,7 @@ goodParamerter{3}.minFreq = 1e-9;
 goodParamerter{3}.A = 128;
 goodParamerter{3}.R = 16;
 goodParamerter{3}.N = 1000;
-goodParamerter{3}.minNPeriod = 8;
+goodParamerter{3}.minNPeriod = 16;
 
 
 
