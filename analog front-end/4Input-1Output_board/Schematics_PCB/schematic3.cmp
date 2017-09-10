@@ -1,0 +1,299 @@
+Cmp-Mod V01 Created by PcbNew   date = 23/01/2017 23:59:00
+
+BeginCmp
+TimeStamp = 58862569
+Path = /588667EF
+Reference = J7;
+ValeurCmp = Screw_Terminal_1x08;
+IdModule  = Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58862556
+Path = /58866762
+Reference = J6;
+ValeurCmp = Screw_Terminal_1x08;
+IdModule  = Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58862532
+Path = /58867269
+Reference = J3;
+ValeurCmp = Screw_Terminal_1x08;
+IdModule  = Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 5882305D
+Path = /5880414B
+Reference = J4;
+ValeurCmp = Screw_Terminal_1x03;
+IdModule  = Camdenboss_screw_terminal:Camdenboss_Screw_terminal_3x9.5mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 587F9277
+Path = /587D04C3
+Reference = C1;
+ValeurCmp = 10 uF;
+IdModule  = Capacitors_SMD:C_0603_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 587F9287
+Path = /587D058E
+Reference = C2;
+ValeurCmp = 10uF;
+IdModule  = Capacitors_SMD:C_0603_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 587F9777
+Path = /58790572
+Reference = U1;
+ValeurCmp = INA128;
+IdModule  = Housings_DIP:DIP-8_W7.62mm_Socket;
+EndCmp
+
+BeginCmp
+TimeStamp = 587F9783
+Path = /58807155
+Reference = U2;
+ValeurCmp = INA128;
+IdModule  = Housings_DIP:DIP-8_W7.62mm_Socket;
+EndCmp
+
+BeginCmp
+TimeStamp = 587F978F
+Path = /5880363F
+Reference = U3;
+ValeurCmp = INA128;
+IdModule  = Housings_DIP:DIP-8_W7.62mm_Socket;
+EndCmp
+
+BeginCmp
+TimeStamp = 587F979B
+Path = /58803A20
+Reference = U4;
+ValeurCmp = INA128;
+IdModule  = Housings_DIP:DIP-8_W7.62mm_Socket;
+EndCmp
+
+BeginCmp
+TimeStamp = 58822302
+Path = /588182B2
+Reference = J5;
+ValeurCmp = Screw_Terminal_1x12;
+IdModule  = Camdenboss_screw_terminal:Camdenboss_Screw_terminal_12x9.5mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58823052
+Path = /588072D3
+Reference = J1;
+ValeurCmp = Screw_Terminal_1x04;
+IdModule  = Camdenboss_screw_terminal:Camdenboss_Screw_terminal_4x9.5mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58823F74
+Path = /5879ACEE
+Reference = C3;
+ValeurCmp = 0.1 uF;
+IdModule  = Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58823F87
+Path = /587A126B
+Reference = C4;
+ValeurCmp = 0.1 uF;
+IdModule  = Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58823F9A
+Path = /58807161
+Reference = C5;
+ValeurCmp = 0.1 uF;
+IdModule  = Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58823FAD
+Path = /5880716B
+Reference = C6;
+ValeurCmp = 0.1 uF;
+IdModule  = Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58823FC0
+Path = /5880364B
+Reference = C7;
+ValeurCmp = 0.1 uF;
+IdModule  = Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58823FD3
+Path = /58803655
+Reference = C8;
+ValeurCmp = 0.1 uF;
+IdModule  = Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58823FE6
+Path = /58803A2C
+Reference = C9;
+ValeurCmp = 0.1 uF;
+IdModule  = Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58823FF9
+Path = /58803A36
+Reference = C10;
+ValeurCmp = 0.1 uF;
+IdModule  = Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 58836203
+Path = /587905BB
+Reference = R1;
+ValeurCmp = RTRIM;
+IdModule  = Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp;
+EndCmp
+
+BeginCmp
+TimeStamp = 5883621A
+Path = /5880718B
+Reference = R2;
+ValeurCmp = RTRIM;
+IdModule  = Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp;
+EndCmp
+
+BeginCmp
+TimeStamp = 58836231
+Path = /58803675
+Reference = R3;
+ValeurCmp = RTRIM;
+IdModule  = Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp;
+EndCmp
+
+BeginCmp
+TimeStamp = 58836248
+Path = /58803A56
+Reference = R4;
+ValeurCmp = RTRIM;
+IdModule  = Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp;
+EndCmp
+
+BeginCmp
+TimeStamp = 5883625F
+Path = /587905FA
+Reference = RV1;
+ValeurCmp = POT;
+IdModule  = Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp;
+EndCmp
+
+BeginCmp
+TimeStamp = 58836276
+Path = /587FBB8E
+Reference = RV2;
+ValeurCmp = POT;
+IdModule  = Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp;
+EndCmp
+
+BeginCmp
+TimeStamp = 5883628D
+Path = /587FBC8F
+Reference = RV3;
+ValeurCmp = POT;
+IdModule  = Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp;
+EndCmp
+
+BeginCmp
+TimeStamp = 588362A4
+Path = /588077DE
+Reference = RV4;
+ValeurCmp = POT;
+IdModule  = Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp;
+EndCmp
+
+BeginCmp
+TimeStamp = 58836BC5
+Path = /587B6EC0
+Reference = JP1;
+ValeurCmp = Jumper_NO_Small;
+IdModule  = Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight;
+EndCmp
+
+BeginCmp
+TimeStamp = 58836BDE
+Path = /5880717A
+Reference = JP2;
+ValeurCmp = Jumper_NO_Small;
+IdModule  = Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight;
+EndCmp
+
+BeginCmp
+TimeStamp = 58836BF7
+Path = /58803664
+Reference = JP3;
+ValeurCmp = Jumper_NO_Small;
+IdModule  = Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight;
+EndCmp
+
+BeginCmp
+TimeStamp = 58836C10
+Path = /58803A45
+Reference = JP4;
+ValeurCmp = Jumper_NO_Small;
+IdModule  = Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight;
+EndCmp
+
+BeginCmp
+TimeStamp = 58862520
+Path = /588671E1
+Reference = J2;
+ValeurCmp = Screw_Terminal_1x08;
+IdModule  = Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 5886256A
+Path = /58861C15
+Reference = JP5;
+ValeurCmp = Jumper_NC_Dual;
+IdModule  = Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight;
+EndCmp
+
+BeginCmp
+TimeStamp = 58862584
+Path = /58863A07
+Reference = JP6;
+ValeurCmp = Jumper_NC_Dual;
+IdModule  = Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight;
+EndCmp
+
+BeginCmp
+TimeStamp = 5886259E
+Path = /58862FB7
+Reference = JP7;
+ValeurCmp = Jumper_NC_Dual;
+IdModule  = Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight;
+EndCmp
+
+BeginCmp
+TimeStamp = 588625B8
+Path = /588646C2
+Reference = JP8;
+ValeurCmp = Jumper_NC_Dual;
+IdModule  = Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight;
+EndCmp
+
+EndListe

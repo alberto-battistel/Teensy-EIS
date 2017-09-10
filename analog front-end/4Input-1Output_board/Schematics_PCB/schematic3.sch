@@ -1,0 +1,1219 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:schematic3-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text Notes 650  2700 0    60   ~ 0
+Gain of INAs\nGain equation for INA128:\nG = 1 + 50 kOhm / RG\nG       R\n1        NC\n2        50.00 k\n5        12.50 k\n10      5.556 k\n...
+$Comp
+L INA128 U1
+U 1 1 58790572
+P 7300 1600
+F 0 "U1" H 7450 1725 50  0000 L CNN
+F 1 "INA128" H 7450 1475 50  0000 L CNN
+F 2 "Housings_DIP:DIP-8_W7.62mm_Socket" H 7400 1600 50  0001 C CNN
+F 3 "" H 7400 1600 50  0000 C CNN
+	1    7300 1600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7000 1450 7000 1500
+Wire Wire Line
+	7000 1750 7000 1700
+Text GLabel 3350 3800 3    60   Input ~ 0
+V-
+Text GLabel 3350 3300 1    60   Input ~ 0
+V+
+Wire Wire Line
+	3350 3300 3350 3400
+Wire Wire Line
+	3350 3700 3350 3800
+Text Notes 6000 750  0    60   ~ 0
+INA1
+Text GLabel 1850 3300 2    60   Input ~ 0
+V+
+Text GLabel 1850 3900 2    60   Input ~ 0
+V-
+$Comp
+L GND #PWR01
+U 1 1 58792FEA
+P 1850 3600
+F 0 "#PWR01" H 1850 3350 50  0001 C CNN
+F 1 "GND" H 1850 3450 50  0000 C CNN
+F 2 "" H 1850 3600 50  0000 C CNN
+F 3 "" H 1850 3600 50  0000 C CNN
+	1    1850 3600
+	0    -1   -1   0   
+$EndComp
+Wire Notes Line
+	2050 4000 2050 3200
+Wire Notes Line
+	600  4000 600  3200
+Text Notes 700  3350 0    60   ~ 0
+Power Rails
+Wire Notes Line
+	600  3200 2050 3200
+Wire Notes Line
+	600  4000 2050 4000
+Text GLabel 7300 850  1    60   Input ~ 0
+V+
+$Comp
+L C C3
+U 1 1 5879ACEE
+P 7550 1050
+F 0 "C3" H 7575 1150 50  0000 L CNN
+F 1 "0.1 uF" H 7575 950 50  0000 L CNN
+F 2 "Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm" H 7588 900 50  0001 C CNN
+F 3 "" H 7550 1050 50  0000 C CNN
+	1    7550 1050
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7400 1050 7300 1050
+Connection ~ 7300 1050
+Wire Wire Line
+	7300 850  7300 1300
+Text GLabel 7300 2600 3    60   Input ~ 0
+V-
+$Comp
+L C C4
+U 1 1 587A126B
+P 7550 2400
+F 0 "C4" H 7575 2500 50  0000 L CNN
+F 1 "0.1 uF" H 7575 2300 50  0000 L CNN
+F 2 "Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm" H 7588 2250 50  0001 C CNN
+F 3 "" H 7550 2400 50  0000 C CNN
+	1    7550 2400
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR02
+U 1 1 587A1271
+P 7800 2600
+F 0 "#PWR02" H 7800 2350 50  0001 C CNN
+F 1 "GND" H 7800 2450 50  0000 C CNN
+F 2 "" H 7800 2600 50  0000 C CNN
+F 3 "" H 7800 2600 50  0000 C CNN
+	1    7800 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 1900 7300 2600
+Wire Wire Line
+	7400 2400 7300 2400
+Connection ~ 7300 2400
+$Comp
+L Jumper_NO_Small JP1
+U 1 1 587B6EC0
+P 6850 1450
+F 0 "JP1" H 6850 1530 50  0000 C CNN
+F 1 "Jumper_NO_Small" H 6860 1390 50  0000 C CNN
+F 2 "Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight" H 6850 1450 50  0001 C CNN
+F 3 "" H 6850 1450 50  0000 C CNN
+	1    6850 1450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 1450 6650 1450
+Wire Wire Line
+	6950 1450 7000 1450
+$Comp
+L C C1
+U 1 1 587D04C3
+P 1700 3450
+F 0 "C1" H 1725 3550 50  0000 L CNN
+F 1 "10 uF" H 1725 3350 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603_HandSoldering" H 1738 3300 50  0001 C CNN
+F 3 "" H 1700 3450 50  0000 C CNN
+	1    1700 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C2
+U 1 1 587D058E
+P 1700 3750
+F 0 "C2" H 1725 3850 50  0000 L CNN
+F 1 "10uF" H 1725 3650 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603_HandSoldering" H 1738 3600 50  0001 C CNN
+F 3 "" H 1700 3750 50  0000 C CNN
+	1    1700 3750
+	1    0    0    -1  
+$EndComp
+Connection ~ 1700 3900
+Connection ~ 1700 3300
+Connection ~ 1700 3600
+$Comp
+L GND #PWR03
+U 1 1 587DE81E
+P 7800 1050
+F 0 "#PWR03" H 7800 800 50  0001 C CNN
+F 1 "GND" H 7800 900 50  0000 C CNN
+F 2 "" H 7800 1050 50  0000 C CNN
+F 3 "" H 7800 1050 50  0000 C CNN
+	1    7800 1050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7700 1050 7800 1050
+Connection ~ 7300 1300
+Connection ~ 7300 1900
+Text Notes 700  1650 0    60   ~ 0
+4 INAs board\ntwo bypass caps in the beginning of the power rails and two caps for every opas\nEvery INA has screw terminals so we can easy jump everywhere with cables\nEvery INA has no or adjustable gain\nEvery INA has a double set of screw inputs\n\nBetween the first screw and the second screw\na resistor can be placed.\nThese resistors can be used for filtering \nor using 2/3 terminals for summing signals\n
+$Comp
+L POT RV1
+U 1 1 587905FA
+P 3350 3550
+F 0 "RV1" V 3175 3550 50  0000 C CNN
+F 1 "POT" V 3250 3550 50  0000 C CNN
+F 2 "Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp" H 3350 3550 50  0001 C CNN
+F 3 "" H 3350 3550 50  0000 C CNN
+	1    3350 3550
+	-1   0    0    1   
+$EndComp
+$Comp
+L RTRIM R1
+U 1 1 587905BB
+P 6650 1600
+F 0 "R1" V 6750 1500 50  0000 L CNN
+F 1 "RTRIM" V 6550 1575 50  0000 L CNN
+F 2 "Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp" V 6580 1600 50  0001 C CNN
+F 3 "" H 6650 1600 50  0000 C CNN
+	1    6650 1600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6400 1400 7000 1400
+Connection ~ 6400 1400
+Wire Wire Line
+	7000 1750 6650 1750
+Wire Wire Line
+	7000 1800 6400 1800
+Connection ~ 6400 1800
+Wire Wire Line
+	7700 2400 7800 2400
+Wire Wire Line
+	7800 2400 7800 2600
+Text GLabel 3950 3800 3    60   Input ~ 0
+V-
+Text GLabel 3950 3300 1    60   Input ~ 0
+V+
+Wire Wire Line
+	3950 3300 3950 3400
+Wire Wire Line
+	3950 3700 3950 3800
+$Comp
+L POT RV2
+U 1 1 587FBB8E
+P 3950 3550
+F 0 "RV2" V 3775 3550 50  0000 C CNN
+F 1 "POT" V 3850 3550 50  0000 C CNN
+F 2 "Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp" H 3950 3550 50  0001 C CNN
+F 3 "" H 3950 3550 50  0000 C CNN
+	1    3950 3550
+	-1   0    0    1   
+$EndComp
+Text GLabel 4500 3800 3    60   Input ~ 0
+V-
+Text GLabel 4500 3300 1    60   Input ~ 0
+V+
+Wire Wire Line
+	4500 3300 4500 3400
+Wire Wire Line
+	4500 3700 4500 3800
+$Comp
+L POT RV3
+U 1 1 587FBC8F
+P 4500 3550
+F 0 "RV3" V 4325 3550 50  0000 C CNN
+F 1 "POT" V 4400 3550 50  0000 C CNN
+F 2 "Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp" H 4500 3550 50  0001 C CNN
+F 3 "" H 4500 3550 50  0000 C CNN
+	1    4500 3550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3200 2450 3200 3550
+Wire Wire Line
+	3400 2450 3400 3000
+Wire Wire Line
+	3400 3000 3700 3000
+Wire Wire Line
+	3700 3000 3700 3550
+Wire Wire Line
+	3700 3550 3800 3550
+Wire Wire Line
+	3600 2450 3600 2900
+Wire Wire Line
+	3600 2900 4250 2900
+Wire Wire Line
+	4250 2900 4250 3550
+Wire Notes Line
+	3000 1700 5550 1700
+Wire Notes Line
+	5550 1700 5550 4450
+Wire Notes Line
+	5550 4450 3000 4450
+Wire Notes Line
+	3000 4450 3000 1700
+Text Notes 3200 1900 0    60   ~ 0
+Set optional potentials
+Text Notes 650  3000 0    60   ~ 0
+Filtering:\nf = 1/(2*pi*(R1+R2)*C)
+$Comp
+L INA128 U3
+U 1 1 5880363F
+P 10050 1600
+F 0 "U3" H 10200 1725 50  0000 L CNN
+F 1 "INA128" H 10200 1475 50  0000 L CNN
+F 2 "Housings_DIP:DIP-8_W7.62mm_Socket" H 10150 1600 50  0001 C CNN
+F 3 "" H 10150 1600 50  0000 C CNN
+	1    10050 1600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9750 1450 9750 1500
+Wire Wire Line
+	9750 1750 9750 1700
+Text Notes 8750 750  0    60   ~ 0
+INA2
+Text GLabel 10050 850  1    60   Input ~ 0
+V+
+$Comp
+L C C7
+U 1 1 5880364B
+P 10300 1050
+F 0 "C7" H 10325 1150 50  0000 L CNN
+F 1 "0.1 uF" H 10325 950 50  0000 L CNN
+F 2 "Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm" H 10338 900 50  0001 C CNN
+F 3 "" H 10300 1050 50  0000 C CNN
+	1    10300 1050
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	10150 1050 10050 1050
+Connection ~ 10050 1050
+Wire Wire Line
+	10050 850  10050 1300
+Text GLabel 10050 2600 3    60   Input ~ 0
+V-
+$Comp
+L C C8
+U 1 1 58803655
+P 10300 2400
+F 0 "C8" H 10325 2500 50  0000 L CNN
+F 1 "0.1 uF" H 10325 2300 50  0000 L CNN
+F 2 "Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm" H 10338 2250 50  0001 C CNN
+F 3 "" H 10300 2400 50  0000 C CNN
+	1    10300 2400
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR04
+U 1 1 5880365B
+P 10550 2600
+F 0 "#PWR04" H 10550 2350 50  0001 C CNN
+F 1 "GND" H 10550 2450 50  0000 C CNN
+F 2 "" H 10550 2600 50  0000 C CNN
+F 3 "" H 10550 2600 50  0000 C CNN
+	1    10550 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10050 1900 10050 2600
+Wire Wire Line
+	10150 2400 10050 2400
+Connection ~ 10050 2400
+$Comp
+L Jumper_NO_Small JP3
+U 1 1 58803664
+P 9600 1450
+F 0 "JP3" H 9600 1530 50  0000 C CNN
+F 1 "Jumper_NO_Small" H 9610 1390 50  0000 C CNN
+F 2 "Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight" H 9600 1450 50  0001 C CNN
+F 3 "" H 9600 1450 50  0000 C CNN
+	1    9600 1450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9500 1450 9400 1450
+Wire Wire Line
+	9700 1450 9750 1450
+$Comp
+L GND #PWR05
+U 1 1 5880366C
+P 10550 1050
+F 0 "#PWR05" H 10550 800 50  0001 C CNN
+F 1 "GND" H 10550 900 50  0000 C CNN
+F 2 "" H 10550 1050 50  0000 C CNN
+F 3 "" H 10550 1050 50  0000 C CNN
+	1    10550 1050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10450 1050 10550 1050
+Connection ~ 10050 1300
+Connection ~ 10050 1900
+$Comp
+L RTRIM R3
+U 1 1 58803675
+P 9400 1600
+F 0 "R3" V 9500 1500 50  0000 L CNN
+F 1 "RTRIM" V 9300 1575 50  0000 L CNN
+F 2 "Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp" V 9330 1600 50  0001 C CNN
+F 3 "" H 9400 1600 50  0000 C CNN
+	1    9400 1600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9150 1400 9750 1400
+Connection ~ 9150 1400
+Wire Wire Line
+	9750 1750 9400 1750
+Wire Wire Line
+	9750 1800 9150 1800
+Connection ~ 9150 1800
+Wire Wire Line
+	10450 2400 10550 2400
+Wire Wire Line
+	10550 2400 10550 2600
+Wire Notes Line
+	8400 600  8400 2950
+$Comp
+L INA128 U4
+U 1 1 58803A20
+P 10050 4200
+F 0 "U4" H 10200 4325 50  0000 L CNN
+F 1 "INA128" H 10200 4075 50  0000 L CNN
+F 2 "Housings_DIP:DIP-8_W7.62mm_Socket" H 10150 4200 50  0001 C CNN
+F 3 "" H 10150 4200 50  0000 C CNN
+	1    10050 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9750 4050 9750 4100
+Wire Wire Line
+	9750 4350 9750 4300
+Text Notes 8750 3350 0    60   ~ 0
+INA4
+Text GLabel 10050 3450 1    60   Input ~ 0
+V+
+$Comp
+L C C9
+U 1 1 58803A2C
+P 10300 3650
+F 0 "C9" H 10325 3750 50  0000 L CNN
+F 1 "0.1 uF" H 10325 3550 50  0000 L CNN
+F 2 "Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm" H 10338 3500 50  0001 C CNN
+F 3 "" H 10300 3650 50  0000 C CNN
+	1    10300 3650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	10150 3650 10050 3650
+Connection ~ 10050 3650
+Wire Wire Line
+	10050 3450 10050 3900
+Text GLabel 10050 5200 3    60   Input ~ 0
+V-
+$Comp
+L C C10
+U 1 1 58803A36
+P 10300 5000
+F 0 "C10" H 10325 5100 50  0000 L CNN
+F 1 "0.1 uF" H 10325 4900 50  0000 L CNN
+F 2 "Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm" H 10338 4850 50  0001 C CNN
+F 3 "" H 10300 5000 50  0000 C CNN
+	1    10300 5000
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR06
+U 1 1 58803A3C
+P 10550 5200
+F 0 "#PWR06" H 10550 4950 50  0001 C CNN
+F 1 "GND" H 10550 5050 50  0000 C CNN
+F 2 "" H 10550 5200 50  0000 C CNN
+F 3 "" H 10550 5200 50  0000 C CNN
+	1    10550 5200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10050 4500 10050 5200
+Wire Wire Line
+	10150 5000 10050 5000
+Connection ~ 10050 5000
+$Comp
+L Jumper_NO_Small JP4
+U 1 1 58803A45
+P 9600 4050
+F 0 "JP4" H 9600 4130 50  0000 C CNN
+F 1 "Jumper_NO_Small" H 9610 3990 50  0000 C CNN
+F 2 "Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight" H 9600 4050 50  0001 C CNN
+F 3 "" H 9600 4050 50  0000 C CNN
+	1    9600 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9500 4050 9400 4050
+Wire Wire Line
+	9700 4050 9750 4050
+$Comp
+L GND #PWR07
+U 1 1 58803A4D
+P 10550 3650
+F 0 "#PWR07" H 10550 3400 50  0001 C CNN
+F 1 "GND" H 10550 3500 50  0000 C CNN
+F 2 "" H 10550 3650 50  0000 C CNN
+F 3 "" H 10550 3650 50  0000 C CNN
+	1    10550 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10450 3650 10550 3650
+Connection ~ 10050 3900
+Connection ~ 10050 4500
+$Comp
+L RTRIM R4
+U 1 1 58803A56
+P 9400 4200
+F 0 "R4" V 9500 4100 50  0000 L CNN
+F 1 "RTRIM" V 9300 4175 50  0000 L CNN
+F 2 "Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp" V 9330 4200 50  0001 C CNN
+F 3 "" H 9400 4200 50  0000 C CNN
+	1    9400 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9050 4000 9750 4000
+Wire Wire Line
+	9750 4350 9400 4350
+Wire Wire Line
+	9050 4400 9750 4400
+Wire Wire Line
+	10450 5000 10550 5000
+Wire Wire Line
+	10550 5000 10550 5200
+Wire Notes Line
+	8400 3200 8400 5550
+$Comp
+L Screw_Terminal_1x03 J4
+U 1 1 5880414B
+P 850 3700
+F 0 "J4" H 850 4050 50  0000 C TNN
+F 1 "Screw_Terminal_1x03" V 700 3700 50  0000 C TNN
+F 2 "Camdenboss_screw_terminal:Camdenboss_Screw_terminal_3x9.5mm" H 850 3375 50  0001 C CNN
+F 3 "" H 825 3800 50  0001 C CNN
+	1    850  3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1050 3500 1400 3500
+Wire Wire Line
+	1400 3500 1400 3300
+Wire Wire Line
+	1400 3300 1850 3300
+Wire Wire Line
+	1050 3700 1450 3700
+Wire Wire Line
+	1450 3700 1450 3600
+Wire Wire Line
+	1450 3600 1850 3600
+Wire Wire Line
+	1050 3900 1850 3900
+Text Notes 7400 7500 0    60   ~ 0
+4 INAs board
+Text Notes 8200 7650 0    60   ~ 0
+18 Jan 2017
+$Comp
+L INA128 U2
+U 1 1 58807155
+P 7300 4200
+F 0 "U2" H 7450 4325 50  0000 L CNN
+F 1 "INA128" H 7450 4075 50  0000 L CNN
+F 2 "Housings_DIP:DIP-8_W7.62mm_Socket" H 7400 4200 50  0001 C CNN
+F 3 "" H 7400 4200 50  0000 C CNN
+	1    7300 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7000 4050 7000 4100
+Wire Wire Line
+	7000 4350 7000 4300
+Text Notes 6000 3350 0    60   ~ 0
+INA3
+Text GLabel 7300 3450 1    60   Input ~ 0
+V+
+$Comp
+L C C5
+U 1 1 58807161
+P 7550 3650
+F 0 "C5" H 7575 3750 50  0000 L CNN
+F 1 "0.1 uF" H 7575 3550 50  0000 L CNN
+F 2 "Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm" H 7588 3500 50  0001 C CNN
+F 3 "" H 7550 3650 50  0000 C CNN
+	1    7550 3650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7400 3650 7300 3650
+Connection ~ 7300 3650
+Wire Wire Line
+	7300 3450 7300 3900
+Text GLabel 7300 5200 3    60   Input ~ 0
+V-
+$Comp
+L C C6
+U 1 1 5880716B
+P 7550 5000
+F 0 "C6" H 7575 5100 50  0000 L CNN
+F 1 "0.1 uF" H 7575 4900 50  0000 L CNN
+F 2 "Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm" H 7588 4850 50  0001 C CNN
+F 3 "" H 7550 5000 50  0000 C CNN
+	1    7550 5000
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR08
+U 1 1 58807171
+P 7800 5200
+F 0 "#PWR08" H 7800 4950 50  0001 C CNN
+F 1 "GND" H 7800 5050 50  0000 C CNN
+F 2 "" H 7800 5200 50  0000 C CNN
+F 3 "" H 7800 5200 50  0000 C CNN
+	1    7800 5200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 4500 7300 5200
+Wire Wire Line
+	7400 5000 7300 5000
+Connection ~ 7300 5000
+$Comp
+L Jumper_NO_Small JP2
+U 1 1 5880717A
+P 6850 4050
+F 0 "JP2" H 6850 4130 50  0000 C CNN
+F 1 "Jumper_NO_Small" H 6860 3990 50  0000 C CNN
+F 2 "Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight" H 6850 4050 50  0001 C CNN
+F 3 "" H 6850 4050 50  0000 C CNN
+	1    6850 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 4050 6650 4050
+Wire Wire Line
+	6950 4050 7000 4050
+$Comp
+L GND #PWR09
+U 1 1 58807182
+P 7800 3650
+F 0 "#PWR09" H 7800 3400 50  0001 C CNN
+F 1 "GND" H 7800 3500 50  0000 C CNN
+F 2 "" H 7800 3650 50  0000 C CNN
+F 3 "" H 7800 3650 50  0000 C CNN
+	1    7800 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7700 3650 7800 3650
+Connection ~ 7300 3900
+Connection ~ 7300 4500
+$Comp
+L RTRIM R2
+U 1 1 5880718B
+P 6650 4200
+F 0 "R2" V 6750 4100 50  0000 L CNN
+F 1 "RTRIM" V 6550 4175 50  0000 L CNN
+F 2 "Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp" V 6580 4200 50  0001 C CNN
+F 3 "" H 6650 4200 50  0000 C CNN
+	1    6650 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6300 4000 7000 4000
+Wire Wire Line
+	7000 4350 6650 4350
+Wire Wire Line
+	6300 4400 7000 4400
+Wire Wire Line
+	7700 5000 7800 5000
+Wire Wire Line
+	7800 5000 7800 5200
+Wire Notes Line
+	5650 3200 5650 5550
+$Comp
+L Screw_Terminal_1x04 J1
+U 1 1 588072D3
+P 3500 2250
+F 0 "J1" H 3500 2700 50  0000 C TNN
+F 1 "Screw_Terminal_1x04" V 3350 2250 50  0000 C TNN
+F 2 "Camdenboss_screw_terminal:Camdenboss_Screw_terminal_4x9.5mm" H 3500 1825 50  0001 C CNN
+F 3 "" H 3475 2450 50  0001 C CNN
+	1    3500 2250
+	0    1    1    0   
+$EndComp
+Text GLabel 5100 3800 3    60   Input ~ 0
+V-
+Text GLabel 5100 3300 1    60   Input ~ 0
+V+
+Wire Wire Line
+	5100 3300 5100 3400
+Wire Wire Line
+	5100 3700 5100 3800
+$Comp
+L POT RV4
+U 1 1 588077DE
+P 5100 3550
+F 0 "RV4" V 4925 3550 50  0000 C CNN
+F 1 "POT" V 5000 3550 50  0000 C CNN
+F 2 "Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp" H 5100 3550 50  0001 C CNN
+F 3 "" H 5100 3550 50  0000 C CNN
+	1    5100 3550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4250 3550 4350 3550
+Wire Wire Line
+	3800 2450 3800 2750
+Wire Wire Line
+	3800 2750 4750 2750
+Wire Wire Line
+	4750 2750 4750 3550
+Wire Wire Line
+	4750 3550 4950 3550
+NoConn ~ 900  6900
+NoConn ~ 900  6700
+NoConn ~ 900  6500
+NoConn ~ 900  6300
+NoConn ~ 900  6100
+NoConn ~ 900  5900
+NoConn ~ 900  5700
+NoConn ~ 900  5500
+NoConn ~ 900  5300
+NoConn ~ 900  5100
+NoConn ~ 900  4900
+NoConn ~ 900  4700
+Text GLabel 1550 4700 2    60   Input ~ 0
+INA1_V+1
+Text GLabel 1550 4900 2    60   Input ~ 0
+INA1_V+2
+Text GLabel 1550 5100 2    60   Input ~ 0
+INA1_V-1
+Text GLabel 1550 5300 2    60   Input ~ 0
+INA1_V-2
+Text GLabel 1550 6300 2    60   Input ~ 0
+INA2_V+1
+Text GLabel 1550 6500 2    60   Input ~ 0
+INA2_V+2
+Text GLabel 1550 6700 2    60   Input ~ 0
+INA2_V-1
+Text GLabel 1550 6900 2    60   Input ~ 0
+INA2_V-2
+Text GLabel 1550 5500 2    60   Input ~ 0
+INA3_V+1
+Text GLabel 1550 5700 2    60   Input ~ 0
+INA3_V-1
+Text GLabel 1550 7100 2    60   Input ~ 0
+INA4_V+1
+Text GLabel 1550 7300 2    60   Input ~ 0
+INA4_V-1
+Wire Wire Line
+	1400 4700 1550 4700
+Wire Wire Line
+	1400 4900 1550 4900
+Wire Wire Line
+	1400 5100 1550 5100
+Wire Wire Line
+	1400 5300 1550 5300
+Wire Wire Line
+	1400 5500 1550 5500
+Wire Wire Line
+	1400 5700 1550 5700
+Wire Wire Line
+	1400 6300 1550 6300
+Wire Wire Line
+	1400 6500 1550 6500
+Wire Wire Line
+	1400 6700 1550 6700
+Wire Wire Line
+	1400 6900 1550 6900
+Wire Wire Line
+	1400 7100 1550 7100
+Wire Wire Line
+	1400 7300 1550 7300
+Text GLabel 6300 1300 0    60   Input ~ 0
+INA1_V+1
+Text GLabel 6300 1450 0    60   Input ~ 0
+INA1_V+2
+Text GLabel 6300 1750 0    60   Input ~ 0
+INA1_V-1
+Text GLabel 6300 1900 0    60   Input ~ 0
+INA1_V-2
+Text GLabel 9000 1300 0    60   Input ~ 0
+INA2_V+1
+Wire Wire Line
+	6400 1300 6400 1450
+Wire Wire Line
+	6400 1300 6300 1300
+Wire Wire Line
+	6400 1450 6300 1450
+Wire Wire Line
+	6300 1750 6400 1750
+Wire Wire Line
+	6400 1750 6400 1900
+Wire Wire Line
+	6400 1900 6300 1900
+Text GLabel 9000 1450 0    60   Input ~ 0
+INA2_V+2
+Text GLabel 9000 1750 0    60   Input ~ 0
+INA2_V-1
+Text GLabel 9000 1900 0    60   Input ~ 0
+INA2_V-2
+Wire Wire Line
+	9000 1300 9150 1300
+Wire Wire Line
+	9150 1300 9150 1450
+Wire Wire Line
+	9150 1450 9000 1450
+Wire Wire Line
+	9000 1750 9150 1750
+Wire Wire Line
+	9150 1750 9150 1900
+Wire Wire Line
+	9150 1900 9000 1900
+Text GLabel 6300 4000 0    60   Input ~ 0
+INA3_V+1
+Text GLabel 6300 4400 0    60   Input ~ 0
+INA3_V-1
+Text GLabel 9050 4000 0    60   Input ~ 0
+INA4_V+1
+Text GLabel 9050 4400 0    60   Input ~ 0
+INA4_V-1
+Wire Notes Line
+	5650 600  5650 2950
+Wire Notes Line
+	5650 600  8300 600 
+Text Notes 550  4300 0    60   ~ 0
+Input Connectors
+Wire Notes Line
+	500  7700 2200 7700
+Wire Notes Line
+	2200 7700 2200 4150
+Wire Notes Line
+	2200 4150 500  4150
+Wire Notes Line
+	500  4150 500  7700
+Text GLabel 7800 1600 2    60   Input ~ 0
+INA1_V0
+Text GLabel 7800 1750 2    60   Input ~ 0
+INA1_Ref
+Wire Wire Line
+	7800 1600 7700 1600
+Text GLabel 10550 1600 2    60   Input ~ 0
+INA2_V0
+Text GLabel 10550 1750 2    60   Input ~ 0
+INA2_Ref
+Wire Wire Line
+	10550 1600 10450 1600
+Text GLabel 10550 4200 2    60   Input ~ 0
+INA4_V0
+Text GLabel 10550 4350 2    60   Input ~ 0
+INA4_Ref
+Wire Wire Line
+	10550 4200 10450 4200
+Text GLabel 7800 4200 2    60   Input ~ 0
+INA3_V0
+Text GLabel 7800 4350 2    60   Input ~ 0
+INA3_Ref
+Wire Wire Line
+	7800 4200 7700 4200
+Wire Notes Line
+	8300 600  8300 2950
+Wire Notes Line
+	8300 2950 5650 2950
+Wire Notes Line
+	5650 3200 8300 3200
+Wire Notes Line
+	8300 3200 8300 5550
+Wire Notes Line
+	8300 5550 5650 5550
+Wire Notes Line
+	8400 3200 11100 3200
+Wire Notes Line
+	11100 3200 11100 5550
+Wire Notes Line
+	11100 5550 8400 5550
+Wire Notes Line
+	8400 2950 11100 2950
+Wire Notes Line
+	11100 2950 11100 600 
+Wire Notes Line
+	11100 600  8400 600 
+$Comp
+L Screw_Terminal_1x12 J5
+U 1 1 588182B2
+P 3100 6400
+F 0 "J5" H 3100 7650 50  0000 C TNN
+F 1 "Screw_Terminal_1x12" V 2950 6400 50  0000 C TNN
+F 2 "Camdenboss_screw_terminal:Camdenboss_Screw_terminal_12x9.5mm" H 3100 5175 50  0001 C CNN
+F 3 "" H 3075 7400 50  0001 C CNN
+	1    3100 6400
+	1    0    0    -1  
+$EndComp
+Text GLabel 3450 5300 2    60   Input ~ 0
+INA1_Ref
+Text GLabel 3450 5500 2    60   Input ~ 0
+INA1_V0
+Text GLabel 3450 5900 2    60   Input ~ 0
+INA3_Ref
+Text GLabel 3450 6500 2    60   Input ~ 0
+INA2_Ref
+Text GLabel 3450 6700 2    60   Input ~ 0
+INA2_V0
+Text GLabel 3450 7100 2    60   Input ~ 0
+INA4_Ref
+Text GLabel 3450 6100 2    60   Input ~ 0
+INA3_V0
+Text GLabel 3450 7300 2    60   Input ~ 0
+INA4_V0
+Wire Wire Line
+	3300 5300 3450 5300
+Wire Wire Line
+	3300 5500 3450 5500
+Wire Wire Line
+	3300 5700 3450 5700
+Wire Wire Line
+	3300 5900 3450 5900
+Wire Wire Line
+	3300 6100 3450 6100
+Wire Wire Line
+	3300 6300 3450 6300
+Wire Wire Line
+	3300 6500 3450 6500
+Wire Wire Line
+	3300 6700 3450 6700
+Wire Wire Line
+	3300 6900 3450 6900
+Wire Wire Line
+	3300 7100 3450 7100
+Wire Wire Line
+	3300 7300 3450 7300
+Wire Wire Line
+	3300 7500 3450 7500
+$Comp
+L GND #PWR010
+U 1 1 5881A7E8
+P 3450 6300
+F 0 "#PWR010" H 3450 6050 50  0001 C CNN
+F 1 "GND" H 3450 6150 50  0000 C CNN
+F 2 "" H 3450 6300 50  0000 C CNN
+F 3 "" H 3450 6300 50  0000 C CNN
+	1    3450 6300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR011
+U 1 1 5881A857
+P 3450 6900
+F 0 "#PWR011" H 3450 6650 50  0001 C CNN
+F 1 "GND" H 3450 6750 50  0000 C CNN
+F 2 "" H 3450 6900 50  0000 C CNN
+F 3 "" H 3450 6900 50  0000 C CNN
+	1    3450 6900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR012
+U 1 1 5881A8BF
+P 3450 7500
+F 0 "#PWR012" H 3450 7250 50  0001 C CNN
+F 1 "GND" H 3450 7350 50  0000 C CNN
+F 2 "" H 3450 7500 50  0000 C CNN
+F 3 "" H 3450 7500 50  0000 C CNN
+	1    3450 7500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR013
+U 1 1 5881AC2E
+P 3450 5700
+F 0 "#PWR013" H 3450 5450 50  0001 C CNN
+F 1 "GND" H 3450 5550 50  0000 C CNN
+F 2 "" H 3450 5700 50  0000 C CNN
+F 3 "" H 3450 5700 50  0000 C CNN
+	1    3450 5700
+	0    -1   -1   0   
+$EndComp
+Text Notes 3000 4950 0    60   ~ 0
+Output Connections
+Wire Notes Line
+	2700 4750 2700 7650
+Wire Notes Line
+	2700 7650 4100 7650
+Wire Notes Line
+	4100 7650 4100 4750
+Wire Notes Line
+	4100 4750 2700 4750
+$Comp
+L GND #PWR014
+U 1 1 58833919
+P 7950 2250
+F 0 "#PWR014" H 7950 2000 50  0001 C CNN
+F 1 "GND" H 7950 2100 50  0000 C CNN
+F 2 "" H 7950 2250 50  0000 C CNN
+F 3 "" H 7950 2250 50  0000 C CNN
+	1    7950 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR015
+U 1 1 5883404D
+P 10750 4850
+F 0 "#PWR015" H 10750 4600 50  0001 C CNN
+F 1 "GND" H 10750 4700 50  0000 C CNN
+F 2 "" H 10750 4850 50  0000 C CNN
+F 3 "" H 10750 4850 50  0000 C CNN
+	1    10750 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR016
+U 1 1 5883424A
+P 7950 4850
+F 0 "#PWR016" H 7950 4600 50  0001 C CNN
+F 1 "GND" H 7950 4700 50  0000 C CNN
+F 2 "" H 7950 4850 50  0000 C CNN
+F 3 "" H 7950 4850 50  0000 C CNN
+	1    7950 4850
+	1    0    0    -1  
+$EndComp
+Text Notes 4400 6200 0    60   Italic 0
+Components:\nINA: INA128, from Texas instruments\nPotentiometers: 3296W-1-104LF, from Bourns\nConnectors: from CBS34ST8/x, from Camdenboss\nCapacitors: 100 nF, SF1H104Z-L515B, from Hitano; 10 uF, type 1206 SMD  \nJumpers: 2.5 mm pitch pins
+$Comp
+L Jumper_NC_Dual JP5
+U 1 1 58861C15
+P 7700 2000
+F 0 "JP5" H 7750 1900 50  0000 L CNN
+F 1 "Jumper_NC_Dual" H 7700 2100 50  0000 C BNN
+F 2 "Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight" H 7700 2000 50  0001 C CNN
+F 3 "" H 7700 2000 50  0000 C CNN
+	1    7700 2000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7400 1900 7400 2000
+Wire Wire Line
+	7400 2000 7600 2000
+Wire Wire Line
+	7700 1750 7800 1750
+Wire Wire Line
+	7700 2250 7950 2250
+$Comp
+L GND #PWR017
+U 1 1 58833EE8
+P 10700 2250
+F 0 "#PWR017" H 10700 2000 50  0001 C CNN
+F 1 "GND" H 10700 2100 50  0000 C CNN
+F 2 "" H 10700 2250 50  0000 C CNN
+F 3 "" H 10700 2250 50  0000 C CNN
+	1    10700 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper_NC_Dual JP7
+U 1 1 58862FB7
+P 10450 2000
+F 0 "JP7" H 10500 1900 50  0000 L CNN
+F 1 "Jumper_NC_Dual" H 10450 2100 50  0000 C BNN
+F 2 "Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight" H 10450 2000 50  0001 C CNN
+F 3 "" H 10450 2000 50  0000 C CNN
+	1    10450 2000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	10450 1750 10550 1750
+Wire Wire Line
+	10450 2250 10700 2250
+Wire Wire Line
+	10150 1900 10150 2000
+Wire Wire Line
+	10150 2000 10350 2000
+$Comp
+L Jumper_NC_Dual JP6
+U 1 1 58863A07
+P 7700 4600
+F 0 "JP6" H 7750 4500 50  0000 L CNN
+F 1 "Jumper_NC_Dual" H 7700 4700 50  0000 C BNN
+F 2 "Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight" H 7700 4600 50  0001 C CNN
+F 3 "" H 7700 4600 50  0000 C CNN
+	1    7700 4600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7700 4350 7800 4350
+Wire Wire Line
+	7700 4850 7950 4850
+Wire Wire Line
+	7400 4500 7400 4600
+Wire Wire Line
+	7400 4600 7600 4600
+$Comp
+L Jumper_NC_Dual JP8
+U 1 1 588646C2
+P 10450 4600
+F 0 "JP8" H 10500 4500 50  0000 L CNN
+F 1 "Jumper_NC_Dual" H 10450 4700 50  0000 C BNN
+F 2 "Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight" H 10450 4600 50  0001 C CNN
+F 3 "" H 10450 4600 50  0000 C CNN
+	1    10450 4600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	10450 4350 10550 4350
+Wire Wire Line
+	10150 4500 10150 4600
+Wire Wire Line
+	10150 4600 10350 4600
+Wire Wire Line
+	10450 4850 10750 4850
+$Comp
+L Screw_Terminal_1x08 J6
+U 1 1 58866762
+P 1200 5200
+F 0 "J6" H 1200 6050 50  0000 C TNN
+F 1 "Screw_Terminal_1x08" V 1050 5200 50  0000 C TNN
+F 2 "Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm" H 1200 4375 50  0001 C CNN
+F 3 "" H 1175 5800 50  0001 C CNN
+	1    1200 5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Screw_Terminal_1x08 J7
+U 1 1 588667EF
+P 1200 6800
+F 0 "J7" H 1200 7650 50  0000 C TNN
+F 1 "Screw_Terminal_1x08" V 1050 6800 50  0000 C TNN
+F 2 "Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm" H 1200 5975 50  0001 C CNN
+F 3 "" H 1175 7400 50  0001 C CNN
+	1    1200 6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Screw_Terminal_1x08 J2
+U 1 1 588671E1
+P 700 5200
+F 0 "J2" H 700 6050 50  0000 C TNN
+F 1 "Screw_Terminal_1x08" V 550 5200 50  0000 C TNN
+F 2 "Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm" H 700 4375 50  0001 C CNN
+F 3 "" H 675 5800 50  0001 C CNN
+	1    700  5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Screw_Terminal_1x08 J3
+U 1 1 58867269
+P 700 6800
+F 0 "J3" H 700 7650 50  0000 C TNN
+F 1 "Screw_Terminal_1x08" V 550 6800 50  0000 C TNN
+F 2 "Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm" H 700 5975 50  0001 C CNN
+F 3 "" H 675 7400 50  0001 C CNN
+	1    700  6800
+	1    0    0    -1  
+$EndComp
+NoConn ~ 900  4500
+NoConn ~ 900  7500
+NoConn ~ 900  7300
+NoConn ~ 900  7100
+$Comp
+L GND #PWR018
+U 1 1 588673BF
+P 1550 4500
+F 0 "#PWR018" H 1550 4250 50  0001 C CNN
+F 1 "GND" H 1550 4350 50  0000 C CNN
+F 2 "" H 1550 4500 50  0000 C CNN
+F 3 "" H 1550 4500 50  0000 C CNN
+	1    1550 4500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR019
+U 1 1 58867440
+P 1550 5900
+F 0 "#PWR019" H 1550 5650 50  0001 C CNN
+F 1 "GND" H 1550 5750 50  0000 C CNN
+F 2 "" H 1550 5900 50  0000 C CNN
+F 3 "" H 1550 5900 50  0000 C CNN
+	1    1550 5900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR020
+U 1 1 588674BA
+P 1550 6100
+F 0 "#PWR020" H 1550 5850 50  0001 C CNN
+F 1 "GND" H 1550 5950 50  0000 C CNN
+F 2 "" H 1550 6100 50  0000 C CNN
+F 3 "" H 1550 6100 50  0000 C CNN
+	1    1550 6100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR021
+U 1 1 58867534
+P 1550 7500
+F 0 "#PWR021" H 1550 7250 50  0001 C CNN
+F 1 "GND" H 1550 7350 50  0000 C CNN
+F 2 "" H 1550 7500 50  0000 C CNN
+F 3 "" H 1550 7500 50  0000 C CNN
+	1    1550 7500
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1550 7500 1400 7500
+Wire Wire Line
+	1550 6100 1400 6100
+Wire Wire Line
+	1400 5900 1550 5900
+Wire Wire Line
+	1400 4500 1550 4500
+$EndSCHEMATC

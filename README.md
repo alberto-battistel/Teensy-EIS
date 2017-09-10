@@ -1,31 +1,34 @@
 # Teensy-EIS
 
-At the moment this git is still a bit chaotic and thrown together, sorry.
-The idea is to use the two ADCs of the Teensy 3.6 (pjrc.com) to aquire data and the DAC to create the perturbation (sinus/multisine). All somehow controlled or managed by a pc. I have a very prototype analog front-end for voltage shift (teensy works 0-3.3V both ADC and DAC) to connect to the real potentiostat. Computer side is made in python.
+At the moment this git is still slightly chaotic, but it is getting better.
+The idea is to use the two ADCs of the Teensy 3.6 (pjrc.com) to aquire data and the DAC to create the perturbation (sinus/multisine) to work as an impedance analyzer. All controlled by a PC using Python, which also make the analysis part. We have an analog front-end for voltage shift (Teensy works 0-3.3V both ADC and DAC) to connect to the real potentiostat. This is tested and works.
 
-## 1 - prototype sketch for ADC acquisition (it is getting obsolete)
-Datalogger_2ch (ADC-DAC contains more update communication) is a prototype to use a teensy 3.6 to aquire data and stream to the computer. It is working well and it is well commented. It use DMA and PDB to synchronize and speed up aquisition. I will probably need to use normal interrupts later, but it is a good starting point. 
+## 1 - ADC-DAC
+ADC-DAC.ino and readFromPython.py work together. They are THE Teensy-EIS programs. CalculateParameters.m helps to make the parameters to feed in Python.
 
-## 2 - DAC
-ADC-DAC/example_DAC contains an example on how to use the DAC from a series of data produced by matlab/octave.
+## 2 - Examples
+In ADC-DAC there are examples of the part of the ADC-DAC.ino. DAC is for the DAC and PingPong manages the serial communication with the PC. They are more or less the most updated or the same as in ADC-DAC.ino.
 
-## 3 - Most updated part
-In ADC-DAC there is a sketch and a python script to run a simple experiment. DAC and ADC work together and stream the data to python which collect and plot. Start the sketch first and then the script. This works very fine. It streams both channels, but because of an error in StreamData (it misses a pointer) the second stream is the same as the first . 
+## 3 - Regarding the DAC
+The signal for the DAC is generated through a Matlab/GNU Octave/Scilab script. (Generate_DAC_vector). 
 
 ## 4 - Analog front-end
-In analog front-end I am collecting all the info for the analog part. 
+In analog front-end there is all about the core of the voltage shift. All the analog interface with the instrument is based on four INA128. They are very flexible pieces. There is no schematic for the power stage and activation of the signal line, but the elements are in the two PDF.
 
 ## 5 - Control flow
-In Schematics there are the diagrams of the programs.
+In Schematics there are the diagrams of the programs. At the moment only the part for the aquisition, which is the most complex. In summary, the Teensy can aquire infinite amount of data which are streamed in blocks to the PC. Python can handle easily several milions data points. 
 
-## 6 - Random things
-In justTest/ there are some python files to fetch the stream/data on the computer (I use an Ubuntu 16.04 at the moment). I should clean here.
+## 6 - pointer?
+pointers-reference-test contains a couple of examples about passing by reference or by pointer to a function. Not fundamental for the rest, just to remember.
 
-## 7 - prototype script for Serial communication and fetching data with python
-justTest/readFromPython is a prototype communication between teensy and python. I should clean here. 
+------------------------------------
+# Version list:
 
-## 8 - Most of the files 
-The rest is a collection of random matlab to plot or collect the data from the Arduino serial monitor. Clean also here.
+## Version 1.00
+Fully operational tidy up version.
+
+## Version 0.99
+Fully operational prototype, both for the programing side and for the analog side. 
 
 ------------------------------------
 # Bug List:
@@ -33,8 +36,8 @@ So we can keep track of what needs to be fixed
 
 -To be filled (Priority: 1)
 
-
+------------------------------------
 # Future Feature List:
-So we can remember all the ideas we have
 
--To be filled (Priority: 1)
+## Version 1.1?
+what shall we implement next?

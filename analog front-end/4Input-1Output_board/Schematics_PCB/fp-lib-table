@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name Camdenboss_screw_terminal)(type KiCad)(uri "$(KIPRJMOD)\\Camdenboss_screw_terminal.pretty")(options "")(descr ""))
+  (lib (name Potentiometer_Trimmer_Battistel-Piher)(type KiCad)(uri "$(KIPRJMOD)\\Potentiometer_Trimmer_Battistel-Piher.pretty")(options "")(descr ""))
+)

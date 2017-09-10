@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>E:/Users/Alberto2/Desktop/Circuits/4Input-1Output_board_02/schematic3.sch</source>
+    <date>24/01/2017 12:49:14</date>
+    <tool>Eeschema 4.0.5</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>schematic3.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="U1">
+      <value>INA128</value>
+      <footprint>Housings_DIP:DIP-8_W7.62mm_Socket</footprint>
+      <libsource lib="linear" part="INA128"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58790572</tstamp>
+    </comp>
+    <comp ref="C3">
+      <value>0.1 uF</value>
+      <footprint>Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <libsource lib="device" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5879ACEE</tstamp>
+    </comp>
+    <comp ref="C4">
+      <value>0.1 uF</value>
+      <footprint>Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <libsource lib="device" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>587A126B</tstamp>
+    </comp>
+    <comp ref="JP1">
+      <value>Jumper_NO_Small</value>
+      <footprint>Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight</footprint>
+      <libsource lib="device" part="Jumper_NO_Small"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>587B6EC0</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>10 uF</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="device" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>587D04C3</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>10uF</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="device" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>587D058E</tstamp>
+    </comp>
+    <comp ref="RV1">
+      <value>POT</value>
+      <footprint>Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp</footprint>
+      <libsource lib="device" part="POT"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>587905FA</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>RTRIM</value>
+      <footprint>Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp</footprint>
+      <libsource lib="device" part="RTRIM"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>587905BB</tstamp>
+    </comp>
+    <comp ref="RV2">
+      <value>POT</value>
+      <footprint>Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp</footprint>
+      <libsource lib="device" part="POT"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>587FBB8E</tstamp>
+    </comp>
+    <comp ref="RV3">
+      <value>POT</value>
+      <footprint>Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp</footprint>
+      <libsource lib="device" part="POT"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>587FBC8F</tstamp>
+    </comp>
+    <comp ref="U3">
+      <value>INA128</value>
+      <footprint>Housings_DIP:DIP-8_W7.62mm_Socket</footprint>
+      <libsource lib="linear" part="INA128"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5880363F</tstamp>
+    </comp>
+    <comp ref="C7">
+      <value>0.1 uF</value>
+      <footprint>Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <libsource lib="device" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5880364B</tstamp>
+    </comp>
+    <comp ref="C8">
+      <value>0.1 uF</value>
+      <footprint>Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <libsource lib="device" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58803655</tstamp>
+    </comp>
+    <comp ref="JP3">
+      <value>Jumper_NO_Small</value>
+      <footprint>Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight</footprint>
+      <libsource lib="device" part="Jumper_NO_Small"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58803664</tstamp>
+    </comp>
+    <comp ref="R3">
+      <value>RTRIM</value>
+      <footprint>Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp</footprint>
+      <libsource lib="device" part="RTRIM"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58803675</tstamp>
+    </comp>
+    <comp ref="U4">
+      <value>INA128</value>
+      <footprint>Housings_DIP:DIP-8_W7.62mm_Socket</footprint>
+      <libsource lib="linear" part="INA128"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58803A20</tstamp>
+    </comp>
+    <comp ref="C9">
+      <value>0.1 uF</value>
+      <footprint>Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <libsource lib="device" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58803A2C</tstamp>
+    </comp>
+    <comp ref="C10">
+      <value>0.1 uF</value>
+      <footprint>Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <libsource lib="device" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58803A36</tstamp>
+    </comp>
+    <comp ref="JP4">
+      <value>Jumper_NO_Small</value>
+      <footprint>Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight</footprint>
+      <libsource lib="device" part="Jumper_NO_Small"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58803A45</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>RTRIM</value>
+      <footprint>Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp</footprint>
+      <libsource lib="device" part="RTRIM"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58803A56</tstamp>
+    </comp>
+    <comp ref="J4">
+      <value>Screw_Terminal_1x03</value>
+      <footprint>Camdenboss_screw_terminal:Camdenboss_Screw_terminal_3x9.5mm</footprint>
+      <libsource lib="conn" part="Screw_Terminal_1x03"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5880414B</tstamp>
+    </comp>
+    <comp ref="U2">
+      <value>INA128</value>
+      <footprint>Housings_DIP:DIP-8_W7.62mm_Socket</footprint>
+      <libsource lib="linear" part="INA128"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58807155</tstamp>
+    </comp>
+    <comp ref="C5">
+      <value>0.1 uF</value>
+      <footprint>Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <libsource lib="device" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58807161</tstamp>
+    </comp>
+    <comp ref="C6">
+      <value>0.1 uF</value>
+      <footprint>Capacitors_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <libsource lib="device" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5880716B</tstamp>
+    </comp>
+    <comp ref="JP2">
+      <value>Jumper_NO_Small</value>
+      <footprint>Connectors_JST:JST_EH_B02B-EH-A_02x2.50mm_Straight</footprint>
+      <libsource lib="device" part="Jumper_NO_Small"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5880717A</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>RTRIM</value>
+      <footprint>Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp</footprint>
+      <libsource lib="device" part="RTRIM"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5880718B</tstamp>
+    </comp>
+    <comp ref="J1">
+      <value>Screw_Terminal_1x04</value>
+      <footprint>Camdenboss_screw_terminal:Camdenboss_Screw_terminal_4x9.5mm</footprint>
+      <libsource lib="conn" part="Screw_Terminal_1x04"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588072D3</tstamp>
+    </comp>
+    <comp ref="RV4">
+      <value>POT</value>
+      <footprint>Potentiometers:Potentiometer_Bourns_3296W_3-8Zoll_Inline_ScrewUp</footprint>
+      <libsource lib="device" part="POT"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588077DE</tstamp>
+    </comp>
+    <comp ref="J5">
+      <value>Screw_Terminal_1x12</value>
+      <footprint>Camdenboss_screw_terminal:Camdenboss_Screw_terminal_12x9.5mm</footprint>
+      <libsource lib="conn" part="Screw_Terminal_1x12"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588182B2</tstamp>
+    </comp>
+    <comp ref="JP5">
+      <value>Jumper_NC_Dual</value>
+      <footprint>Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight</footprint>
+      <libsource lib="device" part="Jumper_NC_Dual"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58861C15</tstamp>
+    </comp>
+    <comp ref="JP7">
+      <value>Jumper_NC_Dual</value>
+      <footprint>Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight</footprint>
+      <libsource lib="device" part="Jumper_NC_Dual"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58862FB7</tstamp>
+    </comp>
+    <comp ref="JP6">
+      <value>Jumper_NC_Dual</value>
+      <footprint>Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight</footprint>
+      <libsource lib="device" part="Jumper_NC_Dual"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58863A07</tstamp>
+    </comp>
+    <comp ref="JP8">
+      <value>Jumper_NC_Dual</value>
+      <footprint>Connectors_JST:JST_EH_B03B-EH-A_03x2.50mm_Straight</footprint>
+      <libsource lib="device" part="Jumper_NC_Dual"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588646C2</tstamp>
+    </comp>
+    <comp ref="J6">
+      <value>Screw_Terminal_1x08</value>
+      <footprint>Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm</footprint>
+      <libsource lib="conn" part="Screw_Terminal_1x08"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58866762</tstamp>
+    </comp>
+    <comp ref="J7">
+      <value>Screw_Terminal_1x08</value>
+      <footprint>Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm</footprint>
+      <libsource lib="conn" part="Screw_Terminal_1x08"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588667EF</tstamp>
+    </comp>
+    <comp ref="J2">
+      <value>Screw_Terminal_1x08</value>
+      <footprint>Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm</footprint>
+      <libsource lib="conn" part="Screw_Terminal_1x08"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588671E1</tstamp>
+    </comp>
+    <comp ref="J3">
+      <value>Screw_Terminal_1x08</value>
+      <footprint>Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm</footprint>
+      <libsource lib="conn" part="Screw_Terminal_1x08"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>58867269</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="device" part="C">
+      <description>Unpolarized capacitor</description>
+      <footprints>
+        <fp>C?</fp>
+        <fp>C_????_*</fp>
+        <fp>C_????</fp>
+        <fp>SMD*_c</fp>
+        <fp>Capacitor*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="linear" part="INA128">
+      <aliases>
+        <alias>INA129</alias>
+      </aliases>
+      <description>Precision, Low Power Instrumentation Amplifier G = 1 + 50kOhm/Rg</description>
+      <docs>http://www.ti.com/lit/ds/symlink/ina128.pdf</docs>
+      <footprints>
+        <fp>DIP*W7.62mm*</fp>
+        <fp>SOIC*Pitch1.27mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">INA128</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Rg" type="passive"/>
+        <pin num="2" name="-" type="input"/>
+        <pin num="3" name="+" type="input"/>
+        <pin num="4" name="V-" type="power_in"/>
+        <pin num="5" name="Ref" type="input"/>
+        <pin num="6" name="~" type="output"/>
+        <pin num="7" name="V+" type="power_in"/>
+        <pin num="8" name="Rg" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="Jumper_NC_Dual">
+      <description>Dual Jumper, normally closed</description>
+      <fields>
+        <field name="Reference">JP</field>
+        <field name="Value">Jumper_NC_Dual</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+        <pin num="3" name="3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="Jumper_NO_Small">
+      <description>Jumper, normally open</description>
+      <fields>
+        <field name="Reference">JP</field>
+        <field name="Value">Jumper_NO_Small</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="POT">
+      <description>Potentionmeter</description>
+      <fields>
+        <field name="Reference">RV</field>
+        <field name="Value">POT</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+        <pin num="3" name="3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="RTRIM">
+      <description>trimmable Resistor (Preset resistor)</description>
+      <footprints>
+        <fp>R_*</fp>
+        <fp>Resistor_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">RTRIM</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="conn" part="Screw_Terminal_1x03">
+      <description>3-pin screw terminal connector</description>
+      <footprints>
+        <fp>bornier3</fp>
+        <fp>TerminalBlock*3pol</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Screw_Terminal_1x03</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+        <pin num="3" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="conn" part="Screw_Terminal_1x04">
+      <description>4-pin screw terminal connector</description>
+      <footprints>
+        <fp>bornier4</fp>
+        <fp>TerminalBlock*4pol</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Screw_Terminal_1x04</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+        <pin num="3" name="~" type="passive"/>
+        <pin num="4" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="conn" part="Screw_Terminal_1x08">
+      <description>8-pin screw terminal connector</description>
+      <footprints>
+        <fp>TerminalBlock*8pol</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Screw_Terminal_1x08</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+        <pin num="3" name="~" type="passive"/>
+        <pin num="4" name="~" type="passive"/>
+        <pin num="5" name="~" type="passive"/>
+        <pin num="6" name="~" type="passive"/>
+        <pin num="7" name="~" type="passive"/>
+        <pin num="8" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="conn" part="Screw_Terminal_1x12">
+      <description>12-pin screw terminal connector</description>
+      <footprints>
+        <fp>TerminalBlock*12pol</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Screw_Terminal_1x12</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+        <pin num="3" name="~" type="passive"/>
+        <pin num="4" name="~" type="passive"/>
+        <pin num="5" name="~" type="passive"/>
+        <pin num="6" name="~" type="passive"/>
+        <pin num="7" name="~" type="passive"/>
+        <pin num="8" name="~" type="passive"/>
+        <pin num="9" name="~" type="passive"/>
+        <pin num="10" name="~" type="passive"/>
+        <pin num="11" name="~" type="passive"/>
+        <pin num="12" name="~" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="device">
+      <uri>C:\Program Files\KiCad\share\kicad\library\device.lib</uri>
+    </library>
+    <library logical="linear">
+      <uri>C:\Program Files\KiCad\share\kicad\library\linear.lib</uri>
+    </library>
+    <library logical="conn">
+      <uri>C:\Program Files\KiCad\share\kicad\library\conn.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="INA1_V0">
+      <node ref="U1" pin="6"/>
+      <node ref="J5" pin="2"/>
+    </net>
+    <net code="2" name="INA1_Ref">
+      <node ref="JP5" pin="1"/>
+      <node ref="J5" pin="1"/>
+    </net>
+    <net code="3" name="INA4_V-1">
+      <node ref="J7" pin="7"/>
+      <node ref="U4" pin="2"/>
+    </net>
+    <net code="4" name="INA2_V0">
+      <node ref="J5" pin="8"/>
+      <node ref="U3" pin="6"/>
+    </net>
+    <net code="5" name="INA4_Ref">
+      <node ref="JP8" pin="1"/>
+      <node ref="J5" pin="10"/>
+    </net>
+    <net code="6" name="INA2_Ref">
+      <node ref="J5" pin="7"/>
+      <node ref="JP7" pin="1"/>
+    </net>
+    <net code="7" name="INA3_Ref">
+      <node ref="JP6" pin="1"/>
+      <node ref="J5" pin="4"/>
+    </net>
+    <net code="8" name="INA3_V0">
+      <node ref="U2" pin="6"/>
+      <node ref="J5" pin="5"/>
+    </net>
+    <net code="9" name="INA4_V0">
+      <node ref="J5" pin="11"/>
+      <node ref="U4" pin="6"/>
+    </net>
+    <net code="10" name="Net-(J2-Pad4)">
+      <node ref="J2" pin="4"/>
+    </net>
+    <net code="11" name="Net-(J2-Pad5)">
+      <node ref="J2" pin="5"/>
+    </net>
+    <net code="12" name="Net-(J2-Pad6)">
+      <node ref="J2" pin="6"/>
+    </net>
+    <net code="13" name="Net-(J2-Pad7)">
+      <node ref="J2" pin="7"/>
+    </net>
+    <net code="14" name="Net-(J2-Pad8)">
+      <node ref="J2" pin="8"/>
+    </net>
+    <net code="15" name="Net-(J3-Pad1)">
+      <node ref="J3" pin="1"/>
+    </net>
+    <net code="16" name="Net-(J3-Pad2)">
+      <node ref="J3" pin="2"/>
+    </net>
+    <net code="17" name="Net-(J3-Pad3)">
+      <node ref="J3" pin="3"/>
+    </net>
+    <net code="18" name="Net-(J3-Pad4)">
+      <node ref="J3" pin="4"/>
+    </net>
+    <net code="19" name="Net-(J3-Pad5)">
+      <node ref="J3" pin="5"/>
+    </net>
+    <net code="20" name="Net-(J1-Pad1)">
+      <node ref="RV4" pin="2"/>
+      <node ref="J1" pin="1"/>
+    </net>
+    <net code="21" name="Net-(J2-Pad3)">
+      <node ref="J2" pin="3"/>
+    </net>
+    <net code="22" name="V+">
+      <node ref="C9" pin="1"/>
+      <node ref="U4" pin="7"/>
+      <node ref="RV2" pin="3"/>
+      <node ref="RV3" pin="3"/>
+      <node ref="U1" pin="7"/>
+      <node ref="J4" pin="1"/>
+      <node ref="RV1" pin="3"/>
+      <node ref="C1" pin="1"/>
+      <node ref="U2" pin="7"/>
+      <node ref="C5" pin="1"/>
+      <node ref="C3" pin="1"/>
+      <node ref="U3" pin="7"/>
+      <node ref="C7" pin="1"/>
+      <node ref="RV4" pin="3"/>
+    </net>
+    <net code="23" name="V-">
+      <node ref="U4" pin="4"/>
+      <node ref="C10" pin="2"/>
+      <node ref="C4" pin="2"/>
+      <node ref="C8" pin="2"/>
+      <node ref="C6" pin="2"/>
+      <node ref="U3" pin="4"/>
+      <node ref="U1" pin="4"/>
+      <node ref="RV1" pin="1"/>
+      <node ref="RV3" pin="1"/>
+      <node ref="U2" pin="4"/>
+      <node ref="RV2" pin="1"/>
+      <node ref="J4" pin="3"/>
+      <node ref="C2" pin="2"/>
+      <node ref="RV4" pin="1"/>
+    </net>
+    <net code="24" name="Net-(J1-Pad4)">
+      <node ref="RV1" pin="2"/>
+      <node ref="J1" pin="4"/>
+    </net>
+    <net code="25" name="Net-(J1-Pad2)">
+      <node ref="J1" pin="2"/>
+      <node ref="RV3" pin="2"/>
+    </net>
+    <net code="26" name="Net-(J2-Pad2)">
+      <node ref="J2" pin="2"/>
+    </net>
+    <net code="27" name="Net-(J2-Pad1)">
+      <node ref="J2" pin="1"/>
+    </net>
+    <net code="28" name="GND">
+      <node ref="J5" pin="6"/>
+      <node ref="J4" pin="2"/>
+      <node ref="J5" pin="9"/>
+      <node ref="J5" pin="3"/>
+      <node ref="C7" pin="2"/>
+      <node ref="C1" pin="2"/>
+      <node ref="C6" pin="1"/>
+      <node ref="C8" pin="1"/>
+      <node ref="C4" pin="1"/>
+      <node ref="C2" pin="1"/>
+      <node ref="C3" pin="2"/>
+      <node ref="C5" pin="2"/>
+      <node ref="JP8" pin="3"/>
+      <node ref="C10" pin="1"/>
+      <node ref="J6" pin="8"/>
+      <node ref="J5" pin="12"/>
+      <node ref="JP5" pin="3"/>
+      <node ref="C9" pin="2"/>
+      <node ref="J6" pin="1"/>
+      <node ref="JP7" pin="3"/>
+      <node ref="J7" pin="8"/>
+      <node ref="J7" pin="1"/>
+      <node ref="JP6" pin="3"/>
+    </net>
+    <net code="29" name="Net-(JP8-Pad2)">
+      <node ref="JP8" pin="2"/>
+      <node ref="U4" pin="5"/>
+    </net>
+    <net code="30" name="Net-(J3-Pad6)">
+      <node ref="J3" pin="6"/>
+    </net>
+    <net code="31" name="Net-(J3-Pad7)">
+      <node ref="J3" pin="7"/>
+    </net>
+    <net code="32" name="Net-(J3-Pad8)">
+      <node ref="J3" pin="8"/>
+    </net>
+    <net code="33" name="Net-(JP6-Pad2)">
+      <node ref="U2" pin="5"/>
+      <node ref="JP6" pin="2"/>
+    </net>
+    <net code="34" name="Net-(JP7-Pad2)">
+      <node ref="U3" pin="5"/>
+      <node ref="JP7" pin="2"/>
+    </net>
+    <net code="35" name="Net-(JP5-Pad2)">
+      <node ref="U1" pin="5"/>
+      <node ref="JP5" pin="2"/>
+    </net>
+    <net code="36" name="Net-(J1-Pad3)">
+      <node ref="RV2" pin="2"/>
+      <node ref="J1" pin="3"/>
+    </net>
+    <net code="37" name="INA1_V-1">
+      <node ref="J6" pin="4"/>
+      <node ref="J6" pin="5"/>
+      <node ref="U1" pin="2"/>
+    </net>
+    <net code="38" name="Net-(R1-Pad2)">
+      <node ref="U1" pin="8"/>
+      <node ref="R1" pin="2"/>
+    </net>
+    <net code="39" name="INA1_V+1">
+      <node ref="J6" pin="3"/>
+      <node ref="J6" pin="2"/>
+      <node ref="U1" pin="3"/>
+    </net>
+    <net code="40" name="Net-(R3-Pad2)">
+      <node ref="U3" pin="8"/>
+      <node ref="R3" pin="2"/>
+    </net>
+    <net code="41" name="INA2_V-1">
+      <node ref="U3" pin="2"/>
+      <node ref="J7" pin="5"/>
+      <node ref="J7" pin="4"/>
+    </net>
+    <net code="42" name="Net-(JP1-Pad2)">
+      <node ref="U1" pin="1"/>
+      <node ref="JP1" pin="2"/>
+    </net>
+    <net code="43" name="Net-(JP1-Pad1)">
+      <node ref="JP1" pin="1"/>
+      <node ref="R1" pin="1"/>
+    </net>
+    <net code="44" name="Net-(JP3-Pad2)">
+      <node ref="JP3" pin="2"/>
+      <node ref="U3" pin="1"/>
+    </net>
+    <net code="45" name="Net-(R2-Pad2)">
+      <node ref="R2" pin="2"/>
+      <node ref="U2" pin="8"/>
+    </net>
+    <net code="46" name="Net-(JP2-Pad2)">
+      <node ref="U2" pin="1"/>
+      <node ref="JP2" pin="2"/>
+    </net>
+    <net code="47" name="INA3_V+1">
+      <node ref="J6" pin="6"/>
+      <node ref="U2" pin="3"/>
+    </net>
+    <net code="48" name="INA3_V-1">
+      <node ref="J6" pin="7"/>
+      <node ref="U2" pin="2"/>
+    </net>
+    <net code="49" name="Net-(JP2-Pad1)">
+      <node ref="JP2" pin="1"/>
+      <node ref="R2" pin="1"/>
+    </net>
+    <net code="50" name="Net-(R4-Pad2)">
+      <node ref="R4" pin="2"/>
+      <node ref="U4" pin="8"/>
+    </net>
+    <net code="51" name="Net-(JP4-Pad2)">
+      <node ref="JP4" pin="2"/>
+      <node ref="U4" pin="1"/>
+    </net>
+    <net code="52" name="INA4_V+1">
+      <node ref="J7" pin="6"/>
+      <node ref="U4" pin="3"/>
+    </net>
+    <net code="53" name="INA2_V+1">
+      <node ref="J7" pin="2"/>
+      <node ref="J7" pin="3"/>
+      <node ref="U3" pin="3"/>
+    </net>
+    <net code="54" name="Net-(JP3-Pad1)">
+      <node ref="JP3" pin="1"/>
+      <node ref="R3" pin="1"/>
+    </net>
+    <net code="55" name="Net-(JP4-Pad1)">
+      <node ref="JP4" pin="1"/>
+      <node ref="R4" pin="1"/>
+    </net>
+  </nets>
+</export>

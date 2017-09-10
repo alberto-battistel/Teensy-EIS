@@ -1,9 +1,0 @@
-sono figo
-
-where I am 
-
-5 Aug 2017
-I can run through the DMA buffer and stream the data
-I did't check if I am loosing points on the way
-very important use serial as settings in USB type for teensy
-in streaming the data serial gives 5 us per value and RAW HID gives 85 us!!!
