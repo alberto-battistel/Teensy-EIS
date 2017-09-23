@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:schematic3-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -200,7 +201,7 @@ Connection ~ 7300 1900
 Text Notes 700  1650 0    60   ~ 0
 4 INAs board\ntwo bypass caps in the beginning of the power rails and two caps for every opas\nEvery INA has screw terminals so we can easy jump everywhere with cables\nEvery INA has no or adjustable gain\nEvery INA has a double set of screw inputs\n\nBetween the first screw and the second screw\na resistor can be placed.\nThese resistors can be used for filtering \nor using 2/3 terminals for summing signals\n
 $Comp
-L POT RV1
+L POT-RESCUE-schematic3 RV1
 U 1 1 587905FA
 P 3350 3550
 F 0 "RV1" V 3175 3550 50  0000 C CNN
@@ -242,7 +243,7 @@ Wire Wire Line
 Wire Wire Line
 	3950 3700 3950 3800
 $Comp
-L POT RV2
+L POT-RESCUE-schematic3 RV2
 U 1 1 587FBB8E
 P 3950 3550
 F 0 "RV2" V 3775 3550 50  0000 C CNN
@@ -261,7 +262,7 @@ Wire Wire Line
 Wire Wire Line
 	4500 3700 4500 3800
 $Comp
-L POT RV3
+L POT-RESCUE-schematic3 RV3
 U 1 1 587FBC8F
 P 4500 3550
 F 0 "RV3" V 4325 3550 50  0000 C CNN
@@ -701,7 +702,7 @@ Wire Wire Line
 Wire Wire Line
 	5100 3700 5100 3800
 $Comp
-L POT RV4
+L POT-RESCUE-schematic3 RV4
 U 1 1 588077DE
 P 5100 3550
 F 0 "RV4" V 4925 3550 50  0000 C CNN

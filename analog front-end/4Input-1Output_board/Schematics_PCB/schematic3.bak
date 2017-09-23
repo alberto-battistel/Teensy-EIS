@@ -1122,7 +1122,7 @@ U 1 1 58866762
 P 1200 5200
 F 0 "J6" H 1200 6050 50  0000 C TNN
 F 1 "Screw_Terminal_1x08" V 1050 5200 50  0000 C TNN
-F 2 "" H 1200 4375 50  0001 C CNN
+F 2 "Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm" H 1200 4375 50  0001 C CNN
 F 3 "" H 1175 5800 50  0001 C CNN
 	1    1200 5200
 	1    0    0    -1  
@@ -1133,7 +1133,7 @@ U 1 1 588667EF
 P 1200 6800
 F 0 "J7" H 1200 7650 50  0000 C TNN
 F 1 "Screw_Terminal_1x08" V 1050 6800 50  0000 C TNN
-F 2 "" H 1200 5975 50  0001 C CNN
+F 2 "Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm" H 1200 5975 50  0001 C CNN
 F 3 "" H 1175 7400 50  0001 C CNN
 	1    1200 6800
 	1    0    0    -1  
@@ -1144,7 +1144,7 @@ U 1 1 588671E1
 P 700 5200
 F 0 "J2" H 700 6050 50  0000 C TNN
 F 1 "Screw_Terminal_1x08" V 550 5200 50  0000 C TNN
-F 2 "" H 700 4375 50  0001 C CNN
+F 2 "Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm" H 700 4375 50  0001 C CNN
 F 3 "" H 675 5800 50  0001 C CNN
 	1    700  5200
 	1    0    0    -1  
@@ -1155,7 +1155,7 @@ U 1 1 58867269
 P 700 6800
 F 0 "J3" H 700 7650 50  0000 C TNN
 F 1 "Screw_Terminal_1x08" V 550 6800 50  0000 C TNN
-F 2 "" H 700 5975 50  0001 C CNN
+F 2 "Camdenboss_screw_terminal:Camdenboss_Screw_terminal_8x9.5mm" H 700 5975 50  0001 C CNN
 F 3 "" H 675 7400 50  0001 C CNN
 	1    700  6800
 	1    0    0    -1  
