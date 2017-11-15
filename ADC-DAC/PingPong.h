@@ -173,6 +173,7 @@ void pingPongParameters() {
 void shutDown() {
     Serial.println("Shut down!");
     digitalWrite(ledPin, LOW);
+    digitalWrite(RelayPin, LOW);
     exit(0);
 }
 
