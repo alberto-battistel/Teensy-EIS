@@ -137,6 +137,7 @@ void loop() {
 
             digitalWrite(ledPin, HIGH);   // set the LED on
             digitalWrite(RelayPin, HIGH);
+            delayMicroseconds(100000);
             
             // start everything
             // DAC
