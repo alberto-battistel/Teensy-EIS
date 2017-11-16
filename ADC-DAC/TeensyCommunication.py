@@ -16,6 +16,7 @@ import numpy as np
 "Number of ADC channels"
 numADC = 2
 
+
 #%%
 """ Function definition to communicate with Teensy"""
 
