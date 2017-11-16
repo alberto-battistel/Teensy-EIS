@@ -1,100 +1,28 @@
 # -*- coding: utf-8 -*-
 """ Receive data from Teensy via Serial.
 It works more or less.
-There are problem with the flow of bytes.
-Python can interpret some bytes as end of line and discard the rest, which is bad.
+
 
 Created on Mon Aug 28
 
-@author: alberto
+@author: Alberto Battistel
 """
 
+not sure it is still working...
+
 #%%
-import serial
+
 import time
 import numpy as np
 import pylab as pl
 from scipy.fftpack import fft
+import TeensyCommunication as TeeCom
+
 
 numADC = 2
-#%%
-""" Function definition """
-
-def InitTeensy():
-    """Open serial communication and reset/start Teensy.
-    
-    Teensy should be on /dev/ttyACM0 (at least on my ubuntu 16.04).
-    Remember to close the communication."""
-    global teensy
-    teensy = serial.Serial('/dev/ttyACM0', 
-                      timeout=0.2)
-    #                  xonxoff=0,
-    #                  rtscts=0,
-    #                  bytesize=serial.EIGHTBITS,
-    #                  parity=serial.PARITY_NONE,
-    #                  stopbits=serial.STOPBITS_ONE)
-    "Toggle DTR to reset Teensy (This makes it start!!)"
-    teensy.setDTR(False)
-    time.sleep(1)
-    teensy.setDTR(True)
-
-def ReceiveData(list4Info, list4Bytes):
-    """Receive the data.
-    
-    first an ascii value with end of line to advice how many data are coming
-    then the bytes of the data
-    twice, one for ADC channel"""
-    
-    StackOfBytes = [[], []]
-    StackOfInfo = [[], []]
-    totalLength = [0,0]
-    StreamNotCompleted = [True, True]
-    while all(StreamNotCompleted):
-        "Read data."
-        for ADC in range(numADC):         
-            #print("%d\tWaiting Byte: \t%d" % (ADC, teensy.inWaiting()))        
-            blockInfo = teensy.readline()
-            StackOfInfo[ADC].append(blockInfo)
-            
-            if blockInfo is b'':
-                print("Done %d" % ADC)
-                StreamNotCompleted[ADC] = False
-                continue
-            if len(blockInfo) > 6:
-                print("Error %d" % ADC)
-                StreamNotCompleted = False
-                break    
-            
-            byte2read = 2*int(blockInfo.decode('utf-8'))
-            byteBlock = teensy.read(byte2read) # read bytes 
-            StackOfBytes[ADC].append(byteBlock)
-            totalLength[ADC] = totalLength[ADC] + len(byteBlock)
-            #print("Byte to read \t%d" % (byte2read/2))
-            #print("%d\tWaiting Byte: \t%d" % (ADC, teensy.inWaiting()))      
-            #print("%d\tLength: \t%d" % (ADC, (totalLength[ADC]/2)))
-    
-    list4Info.append(StackOfInfo)
-    list4Bytes.append(StackOfBytes)
-        
-    for ADC in range(numADC):
-        print("Byte aquired: \t%d" % totalLength[ADC])
-
-def SendParameters(parameters2send):
-    """Tell teensy you are ready (it is just waiting for some bytes)."""
-    teensy.reset_input_buffer()
-    teensy.write(parameters2send.encode('utf-8'))
-    teensy.flush()
-    
-    message = ''    
-    while message != b'Go!\r\n':
-        message = teensy.readline()
-        parametersReceived = message.decode('utf-8')
-        print(parametersReceived)
-        continue
-    return parametersReceived
 
 #%%
-InitTeensy()
+TeeCom.Init()
 
 #%% prepare list to receive the data
 "to store the data as byte"
@@ -188,22 +116,20 @@ frequencyVector = [2.500000e+04, 1.985821e+04,
 #%% 
 t0 = time.time()
 for i in range(len(ListOfParameters)-1):  
-    parameters = SendParameters(ListOfParameters[i])     
+    parameters = TeeCom.SendParameters(ListOfParameters[i])     
     print(parameters)
-    
+ 
     t1 = time.time()
-    ReceiveData(ListOfInfo, ListOfBytes)  
+    TeeCom.ReceiveData(ListOfInfo, ListOfBytes)  
     print("Aquisition time: %.1f s" % (time.time()-t1))
     print("\n")
 
-SendParameters(ListOfParameters[-1])
+TeeCom.SendParameters(ListOfParameters[-1])
 print("Total time: %.1f s" % (time.time()-t0))
 
 #%%
 """Close communication."""        
-teensy.close()
-print("Teensy was closed")
-
+TeeCom.Close()
 
 #%%
 """Convert the list into an array."""  
