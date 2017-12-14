@@ -42,8 +42,8 @@ print(CorrectedParameters)
  
 #%%
 "Free Teensy" 
-#TeeCom.Close() 
-TeeCom.Reset()
+TeeCom.Close() 
+#TeeCom.Reset()
 
 #%%
 "Machine the data"

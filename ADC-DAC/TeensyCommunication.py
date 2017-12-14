@@ -10,6 +10,7 @@ Created on Thu Nov 16 20:41:20 2017
 #%%
 
 import serial
+from serial.tools import list_ports
 import time
 import numpy as np
 
@@ -20,14 +21,29 @@ numADC = 2
 #%%
 """ Function definition to communicate with Teensy"""
 
+def SearchTeensy():
+    """Collect serial port infor and look for Teensy."""
+    
+    ListPortInfo = list_ports.comports()
+    
+    for port in ListPortInfo:
+        if port.manufacturer == 'Teensyduino':
+            SerialName = port.device
+            return SerialName
+            return port
+    
+
 def Init():
     """Open serial communication and reset/start Teensy.
     
     Teensy should be on /dev/ttyACM0 (at least on my ubuntu 16.04).
     Remember to close the communication."""
     
+    SerialName = SearchTeensy()    
+    print(SerialName)
+    
     global teensy
-    teensy = serial.Serial('/dev/ttyACM0', 
+    teensy = serial.Serial(SerialName, 
                       timeout=0.2)
     #                  xonxoff=0,
     #                  rtscts=0,

@@ -1,0 +1,1 @@
+every time you shutdown Teensy (exit(0)), you need to press the botton on the Teensy.

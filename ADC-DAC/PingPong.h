@@ -174,6 +174,7 @@ void shutDown() {
     Serial.println("Shut down!");
     digitalWrite(ledPin, LOW);
     digitalWrite(RelayPin, LOW);
+    // it shut down the Teensy, but then I am not able to restart it
     exit(0);
 }
 
